@@ -267,15 +267,6 @@
   {%- endif -%}
 </div>
 </div>
-{% if settings.enable_compare_product %}
-    <div class="compare-link">
-        <a class="button btn--compare" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#product-compare-modal" data-compare-selected>
-            <span class="compare-text">{{ 'general.compare.title' | t }}</span> 
-            <span class="compare-countPill" data-compare-count></span>
-        </a>
-    </div>
-    {% render 'compare-products-popup' %}
-{% endif %}
 {% schema %}
 {
   "name": "t:sections.main-collection-product-grid.name",

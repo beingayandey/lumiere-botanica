@@ -1458,317 +1458,294 @@ var eboost = '';
                 $("#recently-viewed-products-list .product-info").hide();
             });
         },
-        initCompareIcons: function(compareArr) {
-        	var __this = this;
-
-	        if (!$('body.collection').length) {
-	            return
-	        }
-	        var compareCountNum = $('[data-compare-count]');
-	            
-	        totalProduct = Math.ceil(compareArr.length);
-	        compareCountNum.text(totalProduct);
-
-	        if (!compareArr.length) {
-	            return;
-	        } else {
-
-	            for (var i = 0; i < compareArr.length; i++) {
-	                var icon = $('[data-compare-product-handle="'+ compareArr[i] +'"]');
-	                icon.addClass('compare-added');
-	            };
-
-	            if (typeof(Storage) !== 'undefined') {        
-	                
-	                if (compareArr.length <= 0) {
-	                    return;
-	                }
-
-	                __this.resetCompare(compareArr);
-
-	                setTimeout(function() {
-	                    compareArr.forEach(function(item) {
-	                       __this.createCompareItem(item);
-	                       __this.setAddedForCompareIcon(item,compareArr);      
-	                    });
-	                }, 700);
-	                
-
-	            } else {
-	                alert(window.addressError);
-	            }
-	        }
-	    },
-	    createCompareItem: function(ProductHandle) {
-	    	var __this = this;
-	        var compareProduct = $('[data-compare-modal]').find('.product-grid'),
-	            compareDescription = $('[data-compare-modal]').find('.description'),
-	            compareCollection = $('[data-compare-modal]').find('.collection'),
-	            compareAvailability = $('[data-compare-modal]').find('.availability'),
-	            compareType = $('[data-compare-modal]').find('.product-type'),
-	            compareVendor = $('[data-compare-modal]').find('.product-vendor'),
-	            compareOption1 = $('[data-compare-modal]').find('.option1'),
-	            compareOption2 = $('[data-compare-modal]').find('.option2'),
-	            compareOption3 = $('[data-compare-modal]').find('.option3');
-
-	        jQuery.getJSON(window.router +'/products/'+ProductHandle+'.js', function(product) {
-
-	            var productHTML = '',
-	                descriptionHTML = '',
-	                collectionHTML = '',
-	                availabilityHTML = '',
-	                typeHTML = '',
-	                vendorHTML = '',
-	                typeHTML = '',
-	                productCardHTML = '';
-	   
-	            var productIDCompare = product.id;
-	        
-	            $('body.collection #product-grid .grid__item').each(function () {
-	                var productID = $(this).find('.card-wrapper').data('id');
-
-	                if (productID == productIDCompare) {
-	                	productCardHTML =  $(this).find('.card-wrapper').html()
-	                   
-	                    coll = $(this).find('.product-card__collection').html();
-	                    
-	                    if (coll == '' || coll == undefined ) {
-	                       collectionHTML += '<div class="col-xl-4" data-compare-added="compare-'+product.id+'">-</div>';
-	                    } else {
-	                        collectionHTML += '<div class="col-xl-4" data-compare-added="compare-'+product.id+'">'+coll+'</div>';
-	                    }   
-	                    compareCollection.append(collectionHTML);
-
-	                    descriptionHTML += '<div class="col-xl-4" data-compare-added="compare-'+product.id+'">'+ product.description+'</div>';
-	                    compareDescription.append(descriptionHTML);
-
-	                    vendorHTML += '<div class="col-xl-4" data-compare-added="compare-'+product.id+'">'+ product.vendor +'</div>';
-	                    
-	                    compareVendor.append(vendorHTML);
-
-	                    typeHTML += '<div class="col-xl-4" data-compare-added="compare-'+product.id+'">'+product.type+'</div>';
-
-	                    compareType.append(typeHTML)
-	                }
-	            })
-
-	            productHTML += '<div class="grid-item col-xl-4 text-center" data-compare-added="compare-'+product.id+'">';
-	            productHTML += '<div class="card-wrapper product-card-wrapper underline-links-hover product-card--compare" data-product-id="product-'+product.handle+'">';
-	   			productHTML += productCardHTML;
-	   			productHTML += '<a class="product-card__remove" href="javascript:void(0);" data-icon-compare-remove data-compare-product-handle="'+ product.handle +'" data-id="'+ product.id +'"> <span>' + window.remove + '</span></a>';
-	            productHTML += '</div></div>';
-
-	            if (product.available) {
-	                availabilityHTML += '<div class="col-xl-4 in-stock" data-compare-added="compare-'+product.id+'">'+window.in_stock+'</div>';
-	            } else { 
-	                availabilityHTML += '<div class="col-xl-4 unavailable" data-compare-added="compare-'+product.id+'">'+window.out_of_stock+'</div>';
-	            }
-
-	            compareProduct.append(productHTML);    
-
-	            compareAvailability.append(availabilityHTML);
-
-	            var productOptions = product.options;
-
-	            $.each(productOptions, function(index, opt) {
-	            	var values = opt.values.join(',').toLowerCase();
-	            	var optionHTMLALL = '<div class="col-xl-4" data-compare-added="compare-'+ product.id+'">'+ opt.values.join(',') +'</div>';
-	            	if(values == 'default title') 
-	            		var optionHTMLALL = '<div class="col-xl-4" data-compare-added="compare-'+ product.id+'">-</div>';
-		            if( index == 0 )
-	                	compareOption1.append(optionHTMLALL);
-	                if( index == 1 )
-	                	compareOption2.append(optionHTMLALL);
-	                if( index == 2 )
-	                	compareOption3.append(optionHTMLALL);  
-	                
-	            })
-	            setTimeout(function(){
-	            	$('#product-compare-modal .quick-view-btn').remove();
-		            $('#product-compare-modal .product-card_compare').remove();
-		            $('#product-compare-modal .product-card__variant').remove();
-                    if($('#product-compare-modal .view-details').length > 0)
-                        $('#product-compare-modal .view-details').remove();
-                    if($('#product-compare-modal .quick-add-form').length > 0)
-                        $('#product-compare-modal .quick-add-form').remove();
-                    if($('#product-compare-modal .product-card__description').length > 0)
-                        $('#product-compare-modal .product-card__description').remove();
-                    if($('#product-compare-modal .quick-add').length > 0)
-                        $('#product-compare-modal .quick-add').remove();
-	            },200)
-	            
-	        });
-	    },
-	    removeCompareItem: function(ProductHandle,compareArr) {
-	    	var __this = this;
-	        var iconCompareRemove = '[data-icon-compare-remove]';
-
-	        $(document).off('click.removeCompareItem', iconCompareRemove).on('click.removeCompareItem', iconCompareRemove, function(e) {
-	            e.preventDefault();
-	            e.stopPropagation();
-
-	            var self = $(this),
-	                productId = self.data('id'),
-	                ProductHandle = self.data('compare-product-handle'),
-	                idxArr = compareArr.indexOf(ProductHandle);
-	            
-	            if($('[data-compare-added="compare-'+productId+'"]').length) {
-	                $('[data-compare-added="compare-'+productId+'"]').remove();
-	            }
-
-	            compareArr.splice(idxArr, 1);
-	            localStorage.setItem('compareArr', JSON.stringify(compareArr));
-
-	            __this.setAddedForCompareIcon(ProductHandle,compareArr);
-	        });
-	    },
-	    removeAllCompareItem: function(compareArr) {
-	        var compareRemoveAll = '[data-compare-remove-all]';
-	            compareCountNum = $('[data-compare-count]');
-	            compareElm = $('[data-icon-compare]');
-
-	        $(document).off('click.removeAllCompareItem', compareRemoveAll).on('click.removeAllCompareItem', compareRemoveAll, function(e) {
-	            e.preventDefault();
-	            e.stopPropagation();
-	            setTimeout(function() {
-	                $('[data-compare-added]').remove();
-	                compareArr.splice(0,compareArr.length);
-	                localStorage.setItem('compareArr', JSON.stringify(compareArr));
-
-	                if (compareElm.hasClass('compare-added')) {
-	                    compareElm.removeClass('compare-added');
-	                }
-
-	                totalProduct = Math.ceil(compareArr.length);
-	                compareCountNum.text('0');
-	                compareCountNum.parent().removeClass('show');
-	            }, 500)
-	            
-	        })
-	    },
-	    resetCompare: function(compareArr) {
-	        var compareRemoveAll = '[data-compare-remove-all]';
-	            compareCountNum = $('[data-compare-count]');
-	            compareElm = $('[data-icon-compare]');
-
-	        $('[data-compare-added]').remove();
-
-	        compareArr.splice(0,compareArr.length);
-	        localStorage.setItem('compareArr', JSON.stringify(compareArr));
-
-	        if (compareElm.hasClass('compare-added')) {
-	            compareElm.removeClass('compare-added');
-	        }
-
-	        totalProduct = Math.ceil(compareArr.length);
-	        compareCountNum.text('0');
-	        compareCountNum.parent().removeClass('show');
-	    },
-	    setAddedForCompareIcon: function(ProductHandle,compareArr) {
-	        var compareElm = $('[data-compare-product-handle="'+ ProductHandle +'"]'),
-	            idxArr = compareArr.indexOf(ProductHandle),
-	            compareCountNum = $('[data-compare-count]');
-
-	            compareItems = localStorage.getItem('compareArr') ? JSON.parse(localStorage.getItem('compareArr')) : [];
-	            totalProduct = Math.ceil(compareItems.length);
-
-	        if(idxArr >= 0) {
-	            compareElm.addClass('compare-added');
-	        }
-	        else {
-	            compareElm.removeClass('compare-added');
-	        };
-
-	        compareCountNum.text(totalProduct);
-
-	        if (totalProduct > 1) {
-	            compareCountNum.parent().addClass('show');   
-	        } else {
-	            compareCountNum.parent().removeClass('show');
-	        }
-	    },
-	    doAddOrRemoveCompare: function(compareArr) {
-	    	var __this = this;
-	        var iconCompare = '[data-icon-compare]';
-
-	        $(document).on('click', iconCompare, function(e) {
-	            e.preventDefault();
-
-	            var self = $(this),
-	                productId = self.data('id'),
-	                ProductHandle = self.data('compare-product-handle'),
-	                idxArr = compareArr.indexOf(ProductHandle);
-	            
-	            if(!self.hasClass('compare-added')) {
-	                self.addClass('compare-added');
-
-
-	                compareArr.push(ProductHandle);
-	                localStorage.setItem('compareArr', JSON.stringify(compareArr));
-
-	                __this.createCompareItem(ProductHandle);
-
-	            } else {
-	                self.removeClass('compare-added');
-
-	                if($('[data-compare-added="compare-'+productId+'"]').length) {
-	                    $('[data-compare-added="compare-'+productId+'"]').remove();
-	                }
-
-	                compareArr.splice(idxArr, 1);
-	                localStorage.setItem('compareArr', JSON.stringify(compareArr));
-	            };
-
-	            __this.setAddedForCompareIcon(ProductHandle,compareArr);
-	        });
-	    },
-	    initCompareSelected: function(compareArr) {
-	    	var __this = this;
-	        var iconCompareSelected = '[data-compare-selected]',
-	            compareModal = $('[data-compare-modal]'),
-	            compareModalProduct = compareModal.find('.product-grid'),
-	            compareModalMessage = $('[data-compare-message-modal]');
-
-	        $(document).on('click', iconCompareSelected, function(e) {
-	            e.preventDefault();
-	            e.stopPropagation();                
-
-	            __this.productComparePopup();
-
-	            if (typeof(Storage) !== 'undefined') {        
-	               
-	                if (compareArr.length <= 1) {
-
-	                } else {
-	           
-	                    compareArr.forEach(function(item) {
-	                        __this.removeCompareItem(item,compareArr);
-	                    });
-
-	                    __this.removeAllCompareItem(compareArr);
-	                }                    
-
-	            } else {
-	                alert(window.addressError);
-	            }
-	        });
-	    },
-	    initCompare: function() {
-	    	var __this = this;
-	    	var compareArr = localStorage.getItem('compareArr') ? JSON.parse(localStorage.getItem('compareArr')) : [];
-		    localStorage.setItem('compareArr', JSON.stringify(compareArr));
-		    if (compareArr.length) {
-		        compareArr = JSON.parse(localStorage.getItem('compareArr'));
-		    };
-            __this.doAddOrRemoveCompare(compareArr);
-            __this.initCompareIcons(compareArr);
-            __this.initCompareSelected(compareArr);
+        getCompareItems: function() {
+            var raw = localStorage.getItem('compareArr');
+            var arr = [];
+            try {
+                arr = raw ? JSON.parse(raw) : [];
+            } catch(e) { arr = []; }
+            if (!Array.isArray(arr)) arr = [];
+            return Array.from(new Set(arr));
         },
+
+        checkCompareEmptyState: function(compareArr) {
+            var items = Array.isArray(compareArr) ? compareArr : this.getCompareItems();
+            if (items.length === 0) {
+                $('[data-compare-modal]').hide();
+                $('.compare-empty-state').show();
+                $('[data-compare-remove-all]').hide();
+            } else {
+                $('[data-compare-modal]').show();
+                $('.compare-empty-state').hide();
+                $('[data-compare-remove-all]').show();
+            }
+        },
+
+        initCompareIcons: function(compareArr) {
+            var __this = this;
+            var items = __this.getCompareItems();
+            var compareCountNum = $('[data-compare-count]');
+            var totalProduct = items.length;
+            compareCountNum.text(totalProduct);
+
+            if (totalProduct > 0) {
+                $('.compare-link').show();
+                $('.btn--compare').addClass('show');
+            } else {
+                $('.compare-link').hide();
+                $('.btn--compare').removeClass('show');
+            }
+
+            $('[data-icon-compare]').removeClass('compare-added');
+            $('[data-icon-compare] input[type="checkbox"]').prop('checked', false);
+
+            for (var i = 0; i < items.length; i++) {
+                var icon = $('[data-compare-product-handle="'+ items[i] +'"]');
+                icon.addClass('compare-added');
+                icon.find('input[type="checkbox"]').prop('checked', true);
+            }
+        },
+
+        setAddedForCompareIcon: function(ProductHandle, compareArr) {
+            var __this = this;
+            var items = __this.getCompareItems();
+            var totalProduct = items.length;
+            var compareCountNum = $('[data-compare-count]');
+            compareCountNum.text(totalProduct);
+
+            var compareElm = $('[data-compare-product-handle="'+ ProductHandle +'"]');
+            var isPresent = items.indexOf(ProductHandle) >= 0;
+
+            if (isPresent) {
+                compareElm.addClass('compare-added');
+                compareElm.find('input[type="checkbox"]').prop('checked', true);
+            } else {
+                compareElm.removeClass('compare-added');
+                compareElm.find('input[type="checkbox"]').prop('checked', false);
+            }
+
+            if (totalProduct > 0) {
+                $('.compare-link').show();
+                $('.btn--compare').addClass('show');
+            } else {
+                $('.compare-link').hide();
+                $('.btn--compare').removeClass('show');
+            }
+        },
+
+        renderAllCompareItems: function(compareArr) {
+            var __this = this;
+            var items = __this.getCompareItems();
+            $('[data-compare-added]').remove();
+            __this.checkCompareEmptyState(items);
+
+            if (items.length === 0) return;
+
+            var colClass = items.length === 1 ? 'col-12 col-md-10' : (items.length === 2 ? 'col-6' : 'col-4');
+
+            items.forEach(function(handle) {
+                __this.createCompareItem(handle, colClass);
+            });
+        },
+
+        createCompareItem: function(ProductHandle, colClass) {
+            var __this = this;
+            var compareModal = $('[data-compare-modal]');
+            var compareProduct = compareModal.find('.product-grid');
+            var compareDescription = compareModal.find('.description');
+            var compareCollection = compareModal.find('.collection');
+            var compareAvailability = compareModal.find('.availability');
+            var compareVendor = compareModal.find('.product-vendor');
+            var compareOption1 = compareModal.find('.option1');
+            var compareOption2 = compareModal.find('.option2');
+
+            if (!colClass) colClass = 'col-4';
+
+            $('[data-compare-added="compare-'+ProductHandle+'"]').remove();
+
+            var routerPrefix = window.router || '';
+            if (routerPrefix === '/') routerPrefix = '';
+
+            jQuery.getJSON(routerPrefix + '/products/' + ProductHandle + '.js', function(product) {
+                var rawPrice = product.price ? (product.price / 100).toFixed(2) : '';
+                var currency = window.currency_unit || 'Rs.';
+                var formattedPrice = currency + ' ' + rawPrice;
+
+                var imgUrl = product.featured_image || (product.images && product.images[0]) || '';
+                if (imgUrl && imgUrl.indexOf('http') === -1) {
+                    imgUrl = 'https:' + imgUrl;
+                }
+
+                // 1. Product Card Row
+                var productHTML = '<div class="grid-item ' + colClass + ' text-center compare-col" data-compare-added="compare-' + ProductHandle + '">';
+                productHTML += '  <div class="product-card--compare" style="padding: 1.2rem; background: #fafafa; border-radius: 6px;">';
+                if (imgUrl) {
+                    productHTML += '    <div style="width: 120px; height: 120px; margin: 0 auto 1.2rem; border-radius: 4px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">';
+                    productHTML += '      <img src="' + imgUrl + '" alt="' + (product.title || '') + '" style="max-width: 100%; max-height: 100%; object-fit: contain;">';
+                    productHTML += '    </div>';
+                }
+                productHTML += '    <h3 class="h5" style="font-size: 1.4rem; margin-bottom: 0.6rem; min-height: 4rem; line-height: 1.35;"><a href="' + product.url + '" style="color: var(--color-foreground); text-decoration: none; font-weight: 600;">' + product.title + '</a></h3>';
+                productHTML += '    <div class="price" style="font-weight: 700; color: #274b4f; margin-bottom: 1rem; font-size: 1.5rem;">' + formattedPrice + '</div>';
+                productHTML += '    <a class="button button--secondary" href="' + product.url + '" style="display: inline-block; padding: 0.6rem 1.4rem; font-size: 1.2rem; margin-bottom: 0.8rem; border-radius: 4px;">View Details</a><br>';
+                productHTML += '    <a class="product-card__remove" href="javascript:void(0);" data-icon-compare-remove data-compare-product-handle="' + product.handle + '" data-id="' + product.id + '" style="font-size: 1.2rem; color: #888; text-decoration: underline; cursor: pointer;">Remove</a>';
+                productHTML += '  </div>';
+                productHTML += '</div>';
+                compareProduct.append(productHTML);
+
+                // 2. Description Row
+                var cleanDesc = product.description ? product.description.replace(/<[^>]*>?/gm, '').trim() : '-';
+                if (cleanDesc.length > 140) cleanDesc = cleanDesc.substring(0, 137) + '...';
+                var descHTML = '<div class="' + colClass + ' compare-col" data-compare-added="compare-' + ProductHandle + '" style="padding: 1.5rem; font-size: 1.3rem; line-height: 1.5; color: rgba(var(--color-foreground), 0.75);">' + (cleanDesc || '-') + '</div>';
+                compareDescription.append(descHTML);
+
+                // 3. Category / Collection Row
+                var collName = product.type || 'Botanical Skincare';
+                var collHTML = '<div class="' + colClass + ' compare-col" data-compare-added="compare-' + ProductHandle + '" style="padding: 1.5rem; font-size: 1.3rem; font-weight: 500;">' + collName + '</div>';
+                compareCollection.append(collHTML);
+
+                // 4. Availability Row
+                var availHTML = '<div class="' + colClass + ' compare-col ' + (product.available ? 'in-stock' : 'unavailable') + '" data-compare-added="compare-' + ProductHandle + '" style="padding: 1.5rem; font-size: 1.3rem; font-weight: 600; color: ' + (product.available ? '#274b4f' : '#888') + ';">';
+                availHTML += (product.available ? 'In Stock' : 'Out of Stock') + '</div>';
+                compareAvailability.append(availHTML);
+
+                // 5. Vendor
+                var vendorHTML = '<div class="' + colClass + ' compare-col" data-compare-added="compare-' + ProductHandle + '" style="padding: 1.5rem; font-size: 1.3rem;">' + (product.vendor || 'Lumina Botanica') + '</div>';
+                compareVendor.append(vendorHTML);
+
+                // 6. Variants / Size / Volume
+                var sizeOpt = '-';
+                if (product.options && product.options.length > 0) {
+                    var sizes = [];
+                    product.variants.forEach(function(v) {
+                        if (v.title && v.title.toLowerCase() !== 'default title') {
+                            sizes.push(v.title);
+                        }
+                    });
+                    if (sizes.length > 0) sizeOpt = sizes.join(', ');
+                }
+                var sizeHTML = '<div class="' + colClass + ' compare-col" data-compare-added="compare-' + ProductHandle + '" style="padding: 1.5rem; font-size: 1.3rem; font-weight: 500;">' + sizeOpt + '</div>';
+                compareOption1.append(sizeHTML);
+
+                // 7. Key Skincare Attributes & Tags
+                var tagsList = '-';
+                if (product.tags && product.tags.length > 0) {
+                    var validTags = product.tags.filter(function(t) {
+                        return !t.startsWith('filter_') && !t.startsWith('badge_');
+                    });
+                    if (validTags.length > 0) {
+                        tagsList = validTags.slice(0, 4).join(', ');
+                    }
+                }
+                var benefitsHTML = '<div class="' + colClass + ' compare-col" data-compare-added="compare-' + ProductHandle + '" style="padding: 1.5rem; font-size: 1.3rem; color: #274b4f; font-weight: 500;">' + tagsList + '</div>';
+                compareOption2.append(benefitsHTML);
+
+                __this.checkCompareEmptyState(__this.getCompareItems());
+            }).fail(function() {
+                __this.checkCompareEmptyState(__this.getCompareItems());
+            });
+        },
+
+        removeCompareItem: function(ProductHandle) {
+            var __this = this;
+            var currentArr = __this.getCompareItems();
+            currentArr = currentArr.filter(function(h) { return h !== ProductHandle; });
+            localStorage.setItem('compareArr', JSON.stringify(currentArr));
+
+            $('[data-compare-added="compare-'+ProductHandle+'"]').remove();
+            __this.setAddedForCompareIcon(ProductHandle, currentArr);
+            __this.renderAllCompareItems(currentArr);
+        },
+
+        removeAllCompareItem: function() {
+            var __this = this;
+            var empty = [];
+            localStorage.setItem('compareArr', JSON.stringify(empty));
+            $('[data-compare-added]').remove();
+            $('[data-icon-compare]').removeClass('compare-added');
+            $('[data-icon-compare] input[type="checkbox"]').prop('checked', false);
+            $('[data-compare-count]').text('0');
+            $('.compare-link').hide();
+            $('.btn--compare').removeClass('show');
+            __this.checkCompareEmptyState(empty);
+        },
+
+        doAddOrRemoveCompare: function() {
+            var __this = this;
+            var iconCompare = '[data-icon-compare]';
+
+            $(document).off('click.compareToggle', iconCompare).on('click.compareToggle', iconCompare, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var self = $(this);
+                var ProductHandle = self.data('compare-product-handle');
+                if (!ProductHandle) return;
+
+                var currentArr = __this.getCompareItems();
+                var idxArr = currentArr.indexOf(ProductHandle);
+
+                if (idxArr === -1) {
+                    if (currentArr.length >= 3) {
+                        alert("You can compare up to 3 formulations simultaneously. Please remove a product first.");
+                        return;
+                    }
+                    currentArr.push(ProductHandle);
+                    localStorage.setItem('compareArr', JSON.stringify(currentArr));
+                    __this.setAddedForCompareIcon(ProductHandle, currentArr);
+                } else {
+                    currentArr.splice(idxArr, 1);
+                    localStorage.setItem('compareArr', JSON.stringify(currentArr));
+                    __this.setAddedForCompareIcon(ProductHandle, currentArr);
+                    $('[data-compare-added="compare-'+ProductHandle+'"]').remove();
+                    __this.checkCompareEmptyState(currentArr);
+                }
+            });
+        },
+
+        initCompareSelected: function() {
+            var __this = this;
+            var iconCompareSelected = '[data-compare-selected]';
+            var iconCompareRemove = '[data-icon-compare-remove]';
+            var compareRemoveAll = '[data-compare-remove-all]';
+
+            $(document).off('click.compareOpen', iconCompareSelected).on('click.compareOpen', iconCompareSelected, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                __this.renderAllCompareItems(__this.getCompareItems());
+                __this.productComparePopup();
+            });
+
+            $(document).off('click.removeCompareItem', iconCompareRemove).on('click.removeCompareItem', iconCompareRemove, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var handle = $(this).data('compare-product-handle');
+                if (handle) {
+                    __this.removeCompareItem(handle);
+                }
+            });
+
+            $(document).off('click.removeAllCompareItem', compareRemoveAll).on('click.removeAllCompareItem', compareRemoveAll, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                __this.removeAllCompareItem();
+            });
+        },
+
+        initCompare: function() {
+            var __this = this;
+            var compareArr = __this.getCompareItems();
+            localStorage.setItem('compareArr', JSON.stringify(compareArr));
+
+            __this.doAddOrRemoveCompare();
+            __this.initCompareIcons(compareArr);
+            __this.initCompareSelected();
+        },
+
         productComparePopup: function() {
             var __this = this;
-            var $productCompare = '#product-compare-modal',
-                $Close = $($productCompare).find('.close'),
-                $productCompareContent = $($productCompare).find('.modal-content');
+            var $productCompare = '#product-compare-modal';
+            var $Close = $($productCompare).find('.close, [data-bs-dismiss="modal"]');
+            var $productCompareContent = $($productCompare).find('.modal-content');
 
             if (!$($productCompare).length) {
                 return;
@@ -1776,12 +1753,12 @@ var eboost = '';
 
             __this.modal_open($productCompare, 'popup_productCompare');
 
-            $Close.on('click', function (event) {
+            $Close.off('click.compareClose').on('click.compareClose', function (event) {
                 event.preventDefault();
                 __this.modal_close($productCompare, 'popup_productCompare');
             });
 
-            $($productCompare).on('click', function (event) {
+            $($productCompare).off('click.compareBackdrop').on('click.compareBackdrop', function (event) {
                 if (($($productCompare).hasClass('modal--is-active')) && ($(event.target).closest($productCompareContent).length === 0)){
                     event.preventDefault();
                     __this.modal_close($productCompare, 'popup_productCompare');

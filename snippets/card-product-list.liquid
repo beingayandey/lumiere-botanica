@@ -78,10 +78,10 @@
           </span>    
           {% endif %}
 
-         {% if show_compare_product and template == 'collection' or template == 'search' %}
+         {% if show_compare_product %}
             <div class="product-card_compare" data-icon-compare data-compare-product-handle="{{ card_product.handle }}" data-id="{{ card_product.id }}">
-                <input id="compare_{{ card_product.id }}" class="compare" type="checkbox" name="compare">
-                <label for="compare_{{ card_product.id }}">{{ 'general.compare.title' | t }}</label>
+                <input id="compare_{{ section_id | default: 'main' }}_{{ card_product.id }}" class="compare" type="checkbox" name="compare">
+                <label for="compare_{{ section_id | default: 'main' }}_{{ card_product.id }}">{{ 'general.compare.title' | t | default: 'Compare' }}</label>
             </div>
         {% endif %}
         {%- if card_product.featured_media -%}

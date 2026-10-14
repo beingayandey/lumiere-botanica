@@ -127,6 +127,16 @@
     {%- if settings.predictive_search_enabled -%}
         <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+        {% if settings.enable_compare_product %}
+          {{ 'component-compare.css' | asset_url | stylesheet_tag }}
+          <div class="compare-link" style="display: none;">
+            <a class="button btn--compare" href="javascript:void(0)" data-compare-selected aria-label="Compare Formulations">
+              <span class="compare-text">{{ 'general.compare.title' | t | default: 'Compare' }}</span>
+              <span class="compare-countPill" data-compare-count>0</span>
+            </a>
+          </div>
+          {% render 'compare-products-popup' %}
+        {% endif %}
         {% render 'popup' %}
         {% render 'language-currency' %}
         
