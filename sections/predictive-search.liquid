@@ -112,7 +112,16 @@
         {%- if first_column_results_size > 0 or predictive_search.resources.products.size > 0 -%}
     </div>
     {%- endif -%}
-    {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+    {%- if first_column_results_size == 0 and predictive_search.resources.products.size == 0 -%}
+      <div class="predictive-search__no-results text-center" style="padding: 2.5rem 1.5rem 1rem;">
+        <p class="predictive-search__no-results-text" style="font-size: 1.5rem; margin-bottom: 0.6rem; color: var(--color-foreground);">
+          {{ 'templates.search.no_results' | t: terms: predictive_search.terms }}
+        </p>
+        <p class="predictive-search__no-results-subtext" style="font-size: 1.3rem; color: rgba(var(--color-foreground), 0.7); margin-bottom: 1.2rem;">
+          Check your spelling or try searching for a broader term like &ldquo;serum&rdquo;, &ldquo;cream&rdquo;, or &ldquo;cleanse&rdquo;.
+        </p>
+      </div>
+    {%- endif -%}
     <div id="predictive-search-option-search-keywords" class="predictive-search__search-for-button">
         <button class="predictive-search__item predictive-search__item--term link link--text h5 animate-arrow" tabindex="-1" role="option" aria-selected="false">
             <span data-predictive-search-search-for-text>

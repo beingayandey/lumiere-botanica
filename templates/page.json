@@ -20,7 +20,7 @@
         "text_Nnybkw": {
           "type": "text",
           "settings": {
-            "text": "<p>Based on our experience in the world of health products and beauty supplies, we have specified care products to both genders (male-female) we've got you the best solutions and treatments. Which has been tested for magnificent quality, manufacturing, excellent and satisfying based on previews clients feedback.<br/><br/>We're always ready to introduce the best to you all kind of support on a daily basis follow up, our keys to success integrity and ethics. <br/><br/>Welcome to COSMETIC family for the healthcare and beauty, don't hesitate to contact us to place your order or to answer your valued questions.</p>"
+            "text": "<p>At Lumière Botanica, we believe optimal skin health stems from harmony between potent botanical actives and clinical dermatological science. Each formula is developed with biocompatible phytonutrients that deeply nourish, protect, and illuminate all skin types.<br/><br/>Our commitment to transparency, ethical harvesting, and uncompromising formulation standards ensures that every droplet brings transformative radiance to your daily skincare ritual.</p>"
           }
         }
       },
@@ -80,14 +80,14 @@
         "heading_BCVTXw": {
           "type": "heading",
           "settings": {
-            "heading": "Integer nec ultrices diam",
+            "heading": "Clinical Efficacy & Clean Formulations",
             "heading_size": "h2"
           }
         },
         "text_HF9e3w": {
           "type": "text",
           "settings": {
-            "text": "<p>Proin euismod, elit sed sollicitudin commodo, augue tortor ullamcorper erat, id laoreet lorem tellus quis quam. Maecenas vehicula justo finibus felis luctus molestie. Phasellus quis nibh lobortis arcu fringilla fermentum vel vitae est. Integer nec ultrices diam. Suspendisse mollis id enim quis finibus. Vivamus sodales est eu hendrerit condimentum. Etiam sagittis nibh feugiat justo pellentesque, in tempus eros finibus. Sed eu libero egestas, gravida risus vel, elementum ex. Vivamus vel urna lacus. Vestibulum euismod, urna a consequat porta, odio dui bibendum metus, ultrices consequat felis erat vel velit. Sed quis sagittis arcu. Vestibulum congue sem a elit varius, id rhoncus justo elementum.</p>",
+            "text": "<p>Every formulation is backed by dermal science and crafted with biocompatible ingredients. We eliminate harsh sulfates, artificial fragrances, silicones, and parabens in favor of cold-pressed botanicals, biomimetic peptides, and nutrient-dense fruit extracts.</p>",
             "text_style": "body"
           }
         }
@@ -117,14 +117,14 @@
         "heading_nACprx": {
           "type": "heading",
           "settings": {
-            "heading": "Duis congue mollis tempor",
+            "heading": "Sustainable Luxury & Ethical Sourcing",
             "heading_size": "h2"
           }
         },
         "text_FAQTfM": {
           "type": "text",
           "settings": {
-            "text": "<p>Duis mauris massa, luctus ac risus nec, sollicitudin ultricies diam. Sed a arcu vitae erat tincidunt pharetra eu a orci. Vestibulum laoreet volutpat vestibulum. Suspendisse a turpis vel nisi condimentum faucibus. Duis congue mollis tempor. Vivamus a ligula sit amet lectus imperdiet ullamcorper sit amet id libero. Etiam venenatis at lectus ac convallis. Phasellus eget elit a ex consectetur imperdiet nec vitae purus. Donec semper egestas orci. Suspendisse hendrerit suscipit nulla, a dictum sapien consequat non. Nulla convallis est a nulla congue blandit. In hac habitasse platea dictumst.</p>",
+            "text": "<p>We believe luxury should never compromise our planet. Lumière Botanica sources fair-trade, ethically wildcrafted plant actives and packages every elixir in 100% recyclable amber glass to protect formula potency while minimizing environmental footprint.</p>",
             "text_style": "body"
           }
         }
@@ -154,14 +154,14 @@
         "heading_cryi6N": {
           "type": "heading",
           "settings": {
-            "heading": "Quisque faucibus dignissim faucibus",
+            "heading": "The Lumière Botanica Difference",
             "heading_size": "h1"
           }
         },
         "text_qDY3aN": {
           "type": "text",
           "settings": {
-            "text": "<p>Praesent vel blandit mi, finibus imperdiet magna. Quisque vitae aliquet nulla. Nunc convallis quis mi tempus imperdiet. Sed ut cursus elit. Cras ac velit risus. Nunc turpis enim, hendrerit a varius sit amet, volutpat et magna. Praesent malesuada magna vestibulum, tincidunt diam nec, posuere lacus.</p>"
+            "text": "<p>Crafted in small batches to preserve botanical bio-activity, our formulas work synergistically to restore skin barrier health, optimize cellular turnover, and deliver an authentic lit-from-within glow.</p>"
           }
         }
       },
@@ -185,30 +185,30 @@
           "type": "column",
           "settings": {
             "image": "shopify://shop_images/photo-1613803136995-ecb98d3302b4.jpg",
-            "title": "Praesent vel blandit mi, finibus imperdiet magna",
-            "text": "<p>Vestibulum elementum diam in enim vehicula rhoncus. Praesent sed urna ex.</p>",
-            "link_label": "",
-            "link": "shopify://products/classic-leather-jacket-s"
+            "title": "Pure Bio-Actives",
+            "text": "<p>Cold-pressed, unrefined botanical seed oils and marine bio-ferments rich in antioxidants.</p>",
+            "link_label": "Discover",
+            "link": "shopify://collections/all"
           }
         },
         "column_nEaHRi": {
           "type": "column",
           "settings": {
             "image": "shopify://shop_images/photo-1616683693504-3ea7e9ad6fec.jpg",
-            "title": "Quisque vitae aliquet nulla",
-            "text": "<p>Maecenas tempus turpis et purus scelerisque, eu blandit massa rhoncus. Nullam sit amet lorem tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>",
-            "link_label": "",
-            "link": "shopify://pages/contact-us"
+            "title": "Cruelty-Free & Vegan",
+            "text": "<p>Certified 100% vegan, cruelty-free, and dermatologically tested for all sensitive skin types.</p>",
+            "link_label": "Discover",
+            "link": "shopify://collections/all"
           }
         },
         "column_M8BGN8": {
           "type": "column",
           "settings": {
             "image": "shopify://shop_images/portrait-of-young-afro-woman-with-bright-make-up.jpg",
-            "title": "Sed a arcu vitae erat tincidunt pharetra eu a orci",
-            "text": "<p>Sed efficitur non leo sit amet vulputate. Duis eu pharetra urna, sed rhoncus lectus. Praesent ultricies viverra efficitur. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>",
-            "link_label": "",
-            "link": "shopify://blogs/news"
+            "title": "Eco-Conscious Packaging",
+            "text": "<p>Protective UV-filtering amber glass and post-consumer recycled boxes printed with soy ink.</p>",
+            "link_label": "Discover",
+            "link": "shopify://collections/all"
           }
         }
       },

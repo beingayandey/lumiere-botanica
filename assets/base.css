@@ -7443,6 +7443,7 @@ product-info .loading__spinner:not(.hidden)~*,
 
 .header-middle__item--wishlist {
     margin: 0 2.6rem;
+    position: relative;
 }
 
 .header-middle__item--account {

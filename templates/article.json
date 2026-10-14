@@ -38,16 +38,16 @@
           "settings": {
             "title": "Best Seller",
             "title_view_link": "View All",
-            "collection": "home-garden",
+            "collection": "best-sellers",
             "number": 3
           }
         },
         "image_KTaQfe": {
           "type": "image",
           "settings": {
-            "title": "Heading",
+            "title": "Clean Botanical Beauty",
             "image": "shopify:\/\/shop_images\/free-photo-of-beauticians-putting-makeup-on-smiling-woman-face.jpg",
-            "link": "shopify:\/\/products\/chequered-red-shirt"
+            "link": "shopify:\/\/collections\/skincare"
           }
         }
       },

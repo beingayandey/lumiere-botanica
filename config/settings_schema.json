@@ -753,37 +753,37 @@
         "type": "text",
         "id": "search-trending-item-1",
         "label": "Search Item 1",
-        "default": "sample"
+        "default": "Botanical Serum"
       },
       {
         "type": "text",
         "id": "search-trending-item-2",
         "label": "Search Item 2",
-        "default": "dempus"
+        "default": "Hydra Cleanser"
       },
       {
         "type": "text",
         "id": "search-trending-item-3",
         "label": "Search Item 3",
-        "default": "magnis"
+        "default": "Bakuchiol Oil"
       },
       {
         "type": "text",
         "id": "search-trending-item-4",
         "label": "Search Item 4",
-        "default": "loremous"
+        "default": "Ceramide Melt"
       },
       {
         "type": "text",
         "id": "search-trending-item-5",
         "label": "Search Item 5",
-        "default": "naminos"
+        "default": "Mineral Glow SPF"
       },
       {
         "type": "text",
         "id": "search-trending-item-6",
         "label": "Search Item 6",
-        "default": "dinterdum"
+        "default": "Lip Peptide Oil"
       },
       {
         "type": "header",

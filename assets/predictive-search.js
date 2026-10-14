@@ -88,16 +88,18 @@ class PredictiveSearch extends SearchForm {
 
   onKeyup(event) {
     if (!this.getQuery().length) this.close(true);
-    event.preventDefault();
 
     switch (event.code) {
       case 'ArrowUp':
+        event.preventDefault();
         this.switchOption('up');
         break;
       case 'ArrowDown':
+        event.preventDefault();
         this.switchOption('down');
         break;
       case 'Enter':
+        event.preventDefault();
         this.selectOption();
         break;
     }
@@ -172,6 +174,11 @@ class PredictiveSearch extends SearchForm {
     if (selectedOption) {
       this.close();
       selectedOption.click();
+    } else if (this.getQuery().length) {
+      this.close();
+      if (this.input && this.input.form) {
+        this.input.form.submit();
+      }
     }
   }
 

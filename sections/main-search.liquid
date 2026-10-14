@@ -264,22 +264,42 @@
           {%- endif -%}
         {%- endif -%}
         <div class="product-grid-container" id="ProductGridContainer">
-          {%- if search.results.size == 0 and search.filters != empty -%}
+          {%- if search.results.size == 0 -%}
             <div
               class="template-search__results collection collection--empty{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
               id="product-grid"
               data-id="{{ section.id }}"
             >
               <div class="loading-overlay gradient"></div>
-              <div class="title-wrapper center">
-                <h2 class="title title--primary">
-                  {{ 'sections.collection_template.empty' | t -}}
-                  <br>
-                  {{
-                    'sections.collection_template.use_fewer_filters_html'
-                    | t: link: search_url, class: 'underlined-link link'
-                  }}
+              <div class="title-wrapper center" style="padding: 4rem 1.5rem; max-width: 60rem; margin: 0 auto;">
+                <svg class="icon icon-search" style="width: 4.8rem; height: 4.8rem; opacity: 0.35; margin-bottom: 2rem;" viewBox="0 0 18 19" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z" fill="currentColor"/>
+                </svg>
+                <h2 class="title title--primary h3" style="margin-bottom: 1rem;">
+                  {%- if search.filters != empty -%}
+                    {{ 'sections.collection_template.empty' | t }}
+                  {%- else -%}
+                    {{ 'templates.search.no_results' | t: terms: search.terms }}
+                  {%- endif -%}
                 </h2>
+                <p class="text-secondary" style="line-height: 1.6; margin-bottom: 2.5rem; color: rgba(var(--color-foreground), 0.7);">
+                  {%- if search.filters != empty -%}
+                    {{ 'sections.collection_template.use_fewer_filters_html' | t: link: search_url, class: 'underlined-link link' }}
+                  {%- else -%}
+                    Try checking your spelling or explore one of our featured skincare collections below.
+                  {%- endif -%}
+                </p>
+                <div class="template-search__empty-actions" style="display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;">
+                  <a href="{{ routes.all_products_collection_url }}" class="button" style="min-width: 18rem;">
+                    {{ 'general.continue_shopping' | t | default: 'All Formulations' }}
+                  </a>
+                  <a href="/collections/serums" class="button button--secondary" style="min-width: 15rem;">
+                    Serums & Oils
+                  </a>
+                  <a href="/collections/cleansers" class="button button--secondary" style="min-width: 15rem;">
+                    Cleansers
+                  </a>
+                </div>
               </div>
             </div>
           {%- else -%}

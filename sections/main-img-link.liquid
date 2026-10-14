@@ -48,7 +48,7 @@
               {% endif %}>
                     <div class="image-with-text text-center">
                         {% assign img_url_view = block.settings.image %}
-                        <div class="image-with-text__image hover-images  adaptive_height" style="padding-top: {{ 1 | divided_by: img_url_view.aspect_ratio | times: 100 }}%" >
+                        <div class="image-with-text__image hover-images  adaptive_height" style="padding-top: {% if img_url_view != blank %}{{ 1.0 | divided_by: img_url_view.aspect_ratio | times: 100 }}%{% else %}100%{% endif %};" >
                             {% assign img_url = block.settings.image | img_url: '400x' %}
                             {% assign img_url_2 = block.settings.image | img_url: '300x' %}
                             {% if block.settings.image != blank %}

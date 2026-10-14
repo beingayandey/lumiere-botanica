@@ -183,6 +183,7 @@
           <div class="header-middle__item header-middle__item--wishlist">
               <a class="navUser-action" href="{{ pages['wish-list'].url | default: pages['wishlist'].url | default: '/pages/contact?view=wishlist' }}" aria-label="{{ 'general.wishlist.title' | t | default: 'Wishlist' }}">
                   <svg class="icon"><use xlink:href="#icon-heart" /></svg>
+                  <span class="countPill wishlist-quantity" data-wishlist-count style="display: none;">0</span>
               </a>
           </div>
       {% endif %}
