@@ -1,0 +1,17 @@
+{% comment %}
+  Renders next/previous product navigation links in collection context
+{% endcomment %}
+{%- if collection -%}
+  <li class="breadcrumb__item breadcrumb__item--nav">
+    {%- if collection.previous_product -%}
+      <a href="{{ collection.previous_product }}" class="breadcrumb__nav-link" aria-label="Previous product">
+        <svg class="icon"><use xlink:href="#icon-chevron-left" /></svg>
+      </a>
+    {%- endif -%}
+    {%- if collection.next_product -%}
+      <a href="{{ collection.next_product }}" class="breadcrumb__nav-link" aria-label="Next product">
+        <svg class="icon"><use xlink:href="#icon-chevron-right" /></svg>
+      </a>
+    {%- endif -%}
+  </li>
+{%- endif -%}

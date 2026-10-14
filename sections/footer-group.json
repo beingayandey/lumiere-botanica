@@ -1,0 +1,62 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "text_CRTKVg": {
+          "type": "text",
+          "settings": {
+            "heading": "Lumière Botanica",
+            "subtext": "<p>Clinically backed, organic botanical formulations crafted to nurture your skin barrier and enhance your natural luminosity with pure plant actives.</p>"
+          }
+        },
+        "link_list_QfDaH8": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "link_list_ja4XbM": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Explore",
+            "menu": "main-menu"
+          }
+        },
+        "text_TAkWHt": {
+          "type": "text",
+          "settings": {
+            "heading": "Concierge & Studio",
+            "subtext": "<p>742 Evergreen Botanical Way<br>Portland, OR 97201, USA</p><p><strong>T</strong>: <a href=\"tel:+18005864627\" title=\"tel:+18005864627\">+1 (800) LUMIERE</a></p><p><strong>E</strong>: <a href=\"mailto:care@lumierebotanica.com\" title=\"mailto:care@lumierebotanica.com\">care@lumierebotanica.com</a></p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_CRTKVg",
+        "link_list_QfDaH8",
+        "link_list_ja4XbM",
+        "text_TAkWHt"
+      ],
+      "settings": {
+        "color_scheme": "scheme-7a5f0461-cee8-4641-b964-b0d2ac4adb86",
+        "border-top": true,
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "payment_enable": true,
+        "show_policy": false,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "copyrighttext": "<p>Lumière Botanica. All rights reserved.</p>"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

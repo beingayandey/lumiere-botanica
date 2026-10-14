@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 90" width="400" height="90">
+  <defs>
+    <linearGradient id="roseGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D2926" />
+      <stop offset="100%" stop-color="#1A1817" />
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#B8860B" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Minimalist Botanical Icon -->
+  <g transform="translate(15, 12)">
+    <!-- Stem & Leaves -->
+    <path d="M 32 62 C 32 40, 26 22, 12 10 C 26 18, 38 32, 42 58" fill="none" stroke="url(#leafGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 30 42 C 20 38, 14 26, 16 14 C 24 20, 30 30, 30 42 Z" fill="url(#leafGrad)" opacity="0.85"/>
+    <path d="M 36 28 C 46 22, 52 12, 50 2 C 42 8, 36 18, 36 28 Z" fill="url(#leafGrad)" opacity="0.95"/>
+    <circle cx="32" cy="63" r="2.5" fill="#B8860B" />
+  </g>
+
+  <!-- Brand Typography -->
+  <g transform="translate(80, 0)">
+    <!-- LUMINA -->
+    <text x="0" y="44" font-family="'Assistant', 'Cinzel', 'Playfair Display', 'Didot', 'Baskerville', serif" font-size="34" font-weight="700" letter-spacing="7" fill="url(#roseGold)">LUMINA</text>
+    <!-- BOTANICA -->
+    <text x="3" y="66" font-family="'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" letter-spacing="9" fill="#8C7A6B">BOTANICA</text>
+    <!-- Subtitle Line -->
+    <line x1="2" y1="76" x2="260" y2="76" stroke="#E8E2D9" stroke-width="1" />
+  </g>
+</svg>

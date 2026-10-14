@@ -1,0 +1,51 @@
+{{ 'component-wishlist.css' | asset_url | stylesheet_tag }}
+<div id="wishlistPage">
+    <div class="page page-wishlist">
+        <div class="page-width">
+            {% render 'breadcrumb' %}
+            <div class="section-header text-left">
+                <h1 class="title">{{ 'general.wishlist.title' | t | default: 'My Wishlist' }}</h1>
+            </div>
+            <div class="wishlist_table_wrapper" data-wishlist-table-wrapper>
+                <table class="wishlist_table" data-wishlist-content>
+                    <thead>
+                        <tr class="wishlist_row wishlist__row--heading">
+                            <th class="wishlist_image text-left">{{ 'cart.label.image' | t }}</th>
+                            <th class="wishlist_meta text-left">{{ 'cart.label.product_name' | t }}</th>
+                            <th class="wishlist_price text-left">{{ 'general.wishlist.unit_price' | t }}</th>
+                            <th class="wishlist_add text-center">{{ 'products.product.add' | t }}</th>
+                            <th class="wishlist_remove text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-wishlist-container>
+                    </tbody>
+                </table>
+            </div>
+            <div class="wishlist__empty text-center" data-wishlist-empty style="display: none; padding: 6rem 1rem;">
+                <div style="max-width: 45rem; margin: 0 auto;">
+                    <svg class="icon icon-heart" style="width: 4.8rem; height: 4.8rem; fill: none; stroke: currentColor; opacity: 0.35; margin-bottom: 2rem;" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke-width="1.5" stroke="currentColor"/>
+                    </svg>
+                    <h2 class="h3" style="margin-bottom: 1rem;">{{ 'general.wishlist.empty_title' | t | default: 'Your Wishlist is Empty' }}</h2>
+                    <p class="text-secondary" style="margin-bottom: 2.5rem; line-height: 1.6; color: rgba(var(--color-foreground), 0.65);">
+                        {{ 'general.wishlist.empty_desc' | t | default: 'Explore our botanical collections and save your favorite formulas for later.' }}
+                    </p>
+                    <a href="{{ routes.all_products_collection_url }}" class="button" style="min-width: 22rem; height: 4.8rem; line-height: 4.8rem;">
+                        {{ 'general.continue_shopping' | t | default: 'Explore Products' }}
+                    </a>
+                </div>
+            </div>
+            <div class="wishlist-footer" data-wishlist-footer>
+                <div class="button-share text-center">
+                    <a class="share" href="mailto:?subject={{ 'general.wishlist.title' | t | default: 'My Wishlist' }}&amp;body=">
+                        <svg class="icon"><use xlink:href="#icon-email" /></svg>
+                        <span class="text">{{ 'general.wishlist.share_wishlist' | t }}</span>
+                    </a>
+                </div>
+                <div class="mt-5 pagination-wrapper text-right">
+                    <ul id="wishlist_pagination" class="list--inline pagination"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

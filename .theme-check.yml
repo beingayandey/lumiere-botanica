@@ -1,0 +1,9 @@
+extends: theme-check:recommended
+MatchingTranslations:
+  enabled: false
+ImgWidthAndHeight:
+  severity: warning
+ParserBlockingScript:
+  severity: warning
+MissingTemplate:
+  severity: error

@@ -1,0 +1,26 @@
+{% comment %}
+  Renders a shimmer skeleton product card matching card-product layout
+  Used for tab transitions, recommendations, and collection loading
+{% endcomment %}
+<div class="main-row__item skeleton-card-item" aria-hidden="true">
+  <div class="card-wrapper product-card-wrapper underline-links-hover">
+    <div class="card card--standard card--media" style="--ratio-percent: 100%;">
+      <div class="card__inner color-scheme-2 gradient ratio" style="--ratio-percent: 100%;">
+        <div class="card__media">
+          <div class="media media--transparent">
+            <div class="skeleton-shimmer skeleton-image"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card__content text-center">
+        <div class="card__information text-center">
+          <div class="skeleton-shimmer skeleton-vendor"></div>
+          <div class="skeleton-shimmer skeleton-title"></div>
+          <div class="skeleton-shimmer skeleton-title-short"></div>
+          <div class="skeleton-shimmer skeleton-price"></div>
+          <div class="skeleton-shimmer skeleton-btn"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

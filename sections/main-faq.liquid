@@ -1,0 +1,205 @@
+{{ 'component-faq.css' | asset_url | stylesheet_tag }}
+{%- liquid
+ if section.settings.border-top 
+     assign border_top = 'main-section-border-top' 
+ endif 
+ -%}
+ <script src="{{ 'bootstrap.bundle.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-faq-{{section.id}} main-section homepage_faq  {{ border_top }}" data-section-id="{{ section.id }}" data-section-type="homepage_faq">
+    <div class="page-width">
+    <div class="page-faq show-one-colum">
+     
+        <div class=" page-content">
+            <div class="faqs-paragraph">
+                {% if  section.settings.faqs_title != blank %}
+                <div class="title {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" {% if settings.animations_reveal_on_scroll %} data-cascade {% endif %}>
+                    <h2 class=" {{ section.settings.heading_size }} inline-richtext">
+                        {{ section.settings.faqs_title }}
+                    </h2>
+                </div>
+                {% endif %}
+                <div id="accordion" >
+                    {% assign index = 0 %}
+                    {% for block in section.blocks %}
+                     {% assign index = forloop.index0 %}
+                        <div class="card {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                              {% if settings.animations_reveal_on_scroll %}
+                                data-cascade
+                                style="--animation-order: {{ forloop.index }};"
+                              {% endif %}>
+                            <div class="card-header" id="heading-{{ block.id }}">
+                                <button class="title {{index}} collapsed text-left" data-bs-toggle="collapse" data-bs-target="#{{ block.id }}" aria-expanded="true" aria-controls="{{ block.id }}">
+                                    <h3>{{ block.settings.question_faqs }}</h3>
+                                </button>
+                                <span class="icon-plus"></span>
+                            </div>
+                            <div id="{{ block.id }}" class="collapse {{index}}" aria-labelledby="heading-{{ block.id }}" data-bs-parent="#accordion">
+                                <div class="card-body rte">
+                                    {{ block.settings.answer_faqs }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if section.settings.view_all != blank %}
+                <div class="faqs-paragraph__footer">
+                    <a href="{{section.settings.link_view_all}}" class="link">
+                        <span>{{section.settings.view_all}}</span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+{% schema %}
+{
+    "name": "FAQ",
+    "class": "home_faq section",
+    "tag": "section",
+    "settings": [
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.all.colors.label",
+          "default": "scheme-1"
+        },
+        
+        {
+            "type": "header",
+            "content": "FAQs"
+        },
+
+        {
+            "type" : "text",
+            "id" : "faqs_title",
+            "label" : "FAQs Title",
+            "default": "Help and FAQs"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            }
+          ],
+          "default": "h2",
+          "label": "t:sections.all.heading_size.label"
+        },
+        {
+            "type" : "text",
+            "id" : "view_all",
+            "label" : "View All",
+            "default": "View all topics"
+        },
+        {
+            "type":"url",
+            "id":"link_view_all",
+            "label":" Link View"
+        },
+        {
+            "type": "header",
+            "content": "Section Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "border-top",
+            "label": "Show border top",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Spacing Top",
+            "default": 30,
+            "min": 0,
+            "max": 100,
+            "step": 10,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Spacing bottom",
+            "default": 30,
+            "min": 0,
+            "max": 100,
+            "step": 10,
+            "unit": "px"
+        }
+    ],
+    "blocks": [
+        {
+            "type" : "question",
+            "name" : "Question",
+            "settings":[
+                {
+                    "type" : "text",
+                    "id" : "question_faqs",
+                    "label" : "Question",
+                    "default": "Question"
+                },
+                {
+                    "type" : "html",
+                    "id" : "answer_faqs",
+                    "label" : "Answer",
+                    "default": "<p>Use overlay text to give your customers insight into your brand. Select image and text that relates to your style and story.</p>"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "FAQ",
+            "category": "FAQ",
+            "blocks": [
+                {
+                    "type": "question"
+                },
+                {
+                    "type": "question"
+                },
+                {
+                    "type": "question"
+                },
+                {
+                    "type": "question"
+                },
+                {
+                    "type": "question"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

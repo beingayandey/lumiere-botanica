@@ -1,0 +1,13 @@
+{% comment %}
+  Renders product home detail / quick preview snippet
+{% endcomment %}
+<div class="product-home-detail product-card" data-product-id="{{ product.id }}">
+  {% render 'card-product',
+    card_product: product,
+    media_aspect_ratio: 'adapt',
+    show_secondary_image: true,
+    show_vendor: true,
+    show_rating: true,
+    show_quick_add: true
+  %}
+</div>
