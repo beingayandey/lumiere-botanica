@@ -65,6 +65,8 @@
     var p = window.location.pathname.toLowerCase();
     if (p.indexOf('/pages/wish-list') !== -1 || p.indexOf('/pages/wishlist') !== -1) {
       window.location.replace('/pages/contact?view=wishlist');
+    } else if (p.indexOf('/pages/routine-builder') !== -1 || p.indexOf('/pages/beauty-routine-builder') !== -1) {
+      window.location.replace('/pages/contact?view=routine-builder');
     }
   })();
 </script>

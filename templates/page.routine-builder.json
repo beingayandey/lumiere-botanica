@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "routine-builder",
+      "settings": {
+        "eyebrow": "Personalized Botanical Skincare",
+        "heading": "Lumière Botanica Routine Builder",
+        "subheading": "Answer 3 quick questions to discover your personalized botanical ritual crafted from clean, potent plant actives."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

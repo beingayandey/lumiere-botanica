@@ -1,0 +1,302 @@
+{{ 'component-routine-builder.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'routine-builder.js' | asset_url }}" defer="defer"></script>
+
+<div class="routine-builder-section" id="routineBuilder">
+  <div class="routine-builder__container">
+    
+    <!-- Header -->
+    <header class="routine-builder__header">
+      <span class="routine-builder__eyebrow">{{ section.settings.eyebrow | default: 'Custom Botanical Routine' }}</span>
+      <h1 class="routine-builder__title">{{ section.settings.heading | default: 'Lumière Botanica Routine Builder' }}</h1>
+      <p class="routine-builder__subtitle">{{ section.settings.subheading | default: 'Answer 3 quick questions to discover your personalized botanical ritual crafted from clean, potent plant actives.' }}</p>
+      <div class="routine-builder__disclaimer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <span>Cosmetics recommendation only; does not provide medical advice or diagnose skin conditions.</span>
+      </div>
+    </header>
+
+    <!-- Progress Tracker -->
+    <div class="routine-progress" role="region" aria-label="Routine Builder Progress">
+      <div class="routine-progress__header">
+        <span id="RoutineStepLabel">Step 1 of 3</span>
+        <span id="RoutineStepTracker" aria-hidden="true">Progress</span>
+      </div>
+      <div class="routine-progress__track" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
+        <div class="routine-progress__fill" id="RoutineProgressFill" style="width: 33.33%;"></div>
+      </div>
+      <div class="routine-progress__steps">
+        <span>1. Skin Type</span>
+        <span>2. Main Concern</span>
+        <span>3. Routine Ritual</span>
+      </div>
+    </div>
+
+    <!-- Questionnaire Container -->
+    <div class="routine-quiz-box" id="RoutineQuizBox">
+      
+      <!-- STEP 1: Skin Type -->
+      <section class="routine-step active" id="RoutineStep1" aria-labelledby="step1-title">
+        <div class="routine-step__prompt">
+          <h2 class="routine-step__question" id="step1-title">What is your skin type?</h2>
+          <p class="routine-step__instruction">Select the option that best describes how your skin feels throughout the day.</p>
+        </div>
+
+        <div class="routine-options-grid" role="radiogroup" aria-labelledby="step1-title">
+          
+          <div class="routine-option-card" data-group="skin-type" data-value="sensitive" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="skin-type" value="sensitive" class="routine-option-card__input">
+            <div class="routine-option-card__icon">🌿</div>
+            <h3 class="routine-option-card__title">Sensitive</h3>
+            <p class="routine-option-card__desc">Easily irritated, prone to redness or reactivity, prefers fragrance-free barrier care.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="skin-type" data-value="dry" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="skin-type" value="dry" class="routine-option-card__input">
+            <div class="routine-option-card__icon">💧</div>
+            <h3 class="routine-option-card__title">Dry</h3>
+            <p class="routine-option-card__desc">Feels tight, flaky or depleted; seeks deep lipid replenishment and all-day comfort.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="skin-type" data-value="oily" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="skin-type" value="oily" class="routine-option-card__input">
+            <div class="routine-option-card__icon">✨</div>
+            <h3 class="routine-option-card__title">Oily</h3>
+            <p class="routine-option-card__desc">Produces excess midday shine, prone to enlarged pores, desires lightweight balance.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="skin-type" data-value="combination" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="skin-type" value="combination" class="routine-option-card__input">
+            <div class="routine-option-card__icon">⚖️</div>
+            <h3 class="routine-option-card__title">Combination</h3>
+            <p class="routine-option-card__desc">Oily in T-zone (forehead, nose) and drier or normal on cheeks.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="skin-type" data-value="normal" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="skin-type" value="normal" class="routine-option-card__input">
+            <div class="routine-option-card__icon">🌸</div>
+            <h3 class="routine-option-card__title">Normal</h3>
+            <p class="routine-option-card__desc">Well-balanced, comfortable, seeking antioxidant defense and radiant preservation.</p>
+          </div>
+
+        </div>
+
+        <div class="routine-step-nav">
+          <div></div>
+          <button type="button" class="routine-btn routine-btn--primary" id="btnNextStep1" disabled>
+            Next: Primary Concern →
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 2: Primary Concern -->
+      <section class="routine-step" id="RoutineStep2" aria-labelledby="step2-title">
+        <div class="routine-step__prompt">
+          <h2 class="routine-step__question" id="step2-title">What is your primary skincare focus?</h2>
+          <p class="routine-step__instruction">Choose the focal benefit you want your botanical formulas to address.</p>
+        </div>
+
+        <div class="routine-options-grid" role="radiogroup" aria-labelledby="step2-title">
+          
+          <div class="routine-option-card" data-group="concern" data-value="hydration" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="concern" value="hydration" class="routine-option-card__input">
+            <div class="routine-option-card__icon">💦</div>
+            <h3 class="routine-option-card__title">Hydration</h3>
+            <p class="routine-option-card__desc">Quench thirsty skin and boost cellular moisture with hyaluronic complexes.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="concern" data-value="dryness" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="concern" value="dryness" class="routine-option-card__input">
+            <div class="routine-option-card__icon">🧴</div>
+            <h3 class="routine-option-card__title">Dryness & Barrier Care</h3>
+            <p class="routine-option-card__desc">Soothe tightness, repair compromised skin barrier, and seal in lasting lipids.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="concern" data-value="oiliness" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="concern" value="oiliness" class="routine-option-card__input">
+            <div class="routine-option-card__icon">🍃</div>
+            <h3 class="routine-option-card__title">Oiliness & Clarifying</h3>
+            <p class="routine-option-card__desc">Clarify congested pores and balance sebum with Niacinamide and Zinc actives.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="concern" data-value="dullness" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="concern" value="dullness" class="routine-option-card__input">
+            <div class="routine-option-card__icon">☀️</div>
+            <h3 class="routine-option-card__title">Dullness & Glow</h3>
+            <p class="routine-option-card__desc">Revive tired, lackluster skin tone with Vitamin C and botanical brightenings.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="concern" data-value="uneven texture" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="concern" value="uneven texture" class="routine-option-card__input">
+            <div class="routine-option-card__icon">🌱</div>
+            <h3 class="routine-option-card__title">Uneven Texture</h3>
+            <p class="routine-option-card__desc">Smooth surface irregularities with gentle Bakuchiol and mild botanical exfoliants.</p>
+          </div>
+
+        </div>
+
+        <div class="routine-step-nav">
+          <button type="button" class="routine-btn routine-btn--secondary" id="btnBackStep2">
+            ← Back
+          </button>
+          <button type="button" class="routine-btn routine-btn--primary" id="btnNextStep2" disabled>
+            Next: Routine Ritual →
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 3: Routine Preference -->
+      <section class="routine-step" id="RoutineStep3" aria-labelledby="step3-title">
+        <div class="routine-step__prompt">
+          <h2 class="routine-step__question" id="step3-title">How do you prefer your routine?</h2>
+          <p class="routine-step__instruction">Select the rhythm that fits your lifestyle.</p>
+        </div>
+
+        <div class="routine-options-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));" role="radiogroup" aria-labelledby="step3-title">
+          
+          <div class="routine-option-card selected" data-group="routine-preference" data-value="simple" role="radio" aria-checked="true" tabindex="0">
+            <input type="radio" name="routine-preference" value="simple" class="routine-option-card__input" checked>
+            <div class="routine-option-card__icon">⚡</div>
+            <h3 class="routine-option-card__title">Simple & Streamlined (4 Steps)</h3>
+            <p class="routine-option-card__desc">Cleanse, Treat (Serum), Moisturize, and Protect (SPF). Fast, high-potency daily essentials.</p>
+          </div>
+
+          <div class="routine-option-card" data-group="routine-preference" data-value="extended" role="radio" aria-checked="false" tabindex="0">
+            <input type="radio" name="routine-preference" value="extended" class="routine-option-card__input">
+            <div class="routine-option-card__icon">🌺</div>
+            <h3 class="routine-option-card__title">Extended Ritual (5 Steps)</h3>
+            <p class="routine-option-card__desc">Includes an added hydrating Essence/Toner step for deep botanical infusion and prep.</p>
+          </div>
+
+        </div>
+
+        <div class="routine-step-nav">
+          <button type="button" class="routine-btn routine-btn--secondary" id="btnBackStep3">
+            ← Back
+          </button>
+          <button type="button" class="routine-btn routine-btn--primary" id="btnFinishQuiz">
+            View My Tailored Routine →
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Results Display -->
+    <div class="routine-results" id="RoutineResultsBox" aria-live="polite">
+      
+      <div class="routine-results__summary-card">
+        <div class="routine-results__summary-header">
+          <div>
+            <span class="routine-builder__eyebrow" style="margin-bottom: 0.5rem;">Your Tailored Regimen</span>
+            <h2 style="font-size: 2.4rem; color: #274b4f; margin: 0;">Botanical Synergy Routine</h2>
+          </div>
+          <div class="routine-results__actions-top">
+            <button type="button" class="routine-btn-restart">↺ Retake Quiz / Change Answers</button>
+          </div>
+        </div>
+
+        <div class="routine-results__badge-group" id="RoutineProfileBadges"></div>
+        <p style="font-size: 1.3rem; color: rgba(var(--color-foreground), 0.7); margin: 0.8rem 0 0;">
+          Formulations selected directly from our active store catalog matching your profile tags. Transparent explanations show exactly why each step was chosen.
+        </p>
+      </div>
+
+      <!-- Steps Timeline -->
+      <div class="routine-steps-list" id="RoutineStepsList"></div>
+
+      <!-- Bundle Card -->
+      <div class="routine-bundle-card" id="RoutineBundleCard">
+        <div class="routine-bundle-card__info">
+          <h3>Adopt the Full Ritual</h3>
+          <p>Add all recommended in-stock formulations to your bag with a single click.</p>
+          <div class="routine-bundle-card__price-wrap">
+            <span style="font-size: 1.4rem; color: rgba(var(--color-foreground), 0.7);">Routine Total:</span>
+            <span class="routine-bundle-card__total" id="RoutineBundleTotal">Rs. 0.00</span>
+          </div>
+        </div>
+        <div class="routine-bundle-card__actions">
+          <button type="button" class="routine-btn routine-btn--primary" id="btnRoutineAddBundle">
+            🛍️ Add Entire Routine to Cart
+          </button>
+          <button type="button" class="routine-btn routine-btn--secondary routine-btn-restart">
+            ↺ Restart Quiz
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Embedded Server-Side Product Catalog Payload -->
+{%- assign routine_collection = collections[section.settings.collection] | default: collections.all -%}
+<script type="application/json" id="RoutineBuilderProducts">
+[
+  {%- for product in routine_collection.products limit: 50 -%}
+    {
+      "id": {{ product.id | json }},
+      "title": {{ product.title | json }},
+      "handle": {{ product.handle | json }},
+      "url": {{ product.url | json }},
+      "product_type": {{ product.type | default: product.product_type | json }},
+      "tags": {{ product.tags | json }},
+      {%- assign feat_img = product.featured_media.preview_image | default: product.featured_image -%}
+      "featured_image": {%- if feat_img != blank -%}{{ feat_img | image_url: width: 600 | json }}{%- else -%}""{%- endif -%},
+      "available": {{ product.available | json }},
+      "price": {{ product.price | money | json }},
+      "price_raw": {{ product.price | json }},
+      "variants": [
+        {%- for variant in product.variants -%}
+          {
+            "id": {{ variant.id | json }},
+            "title": {{ variant.title | json }},
+            "price": {{ variant.price | money | json }},
+            "price_raw": {{ variant.price | json }},
+            "available": {{ variant.available | json }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+]
+</script>
+
+{% schema %}
+{
+  "name": "Beauty Routine Builder",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Custom Botanical Routine"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Lumière Botanica Routine Builder"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Answer 3 quick questions to discover your personalized botanical ritual crafted from clean, potent plant actives."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Product Collection",
+      "info": "Leave blank to draw from all store products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Beauty Routine Builder"
+    }
+  ]
+}
+{% endschema %}

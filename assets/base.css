@@ -7445,6 +7445,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
   width: 100%;
   display: inline-block;
   transition: width 0.3s cubic-bezier(0.52, 0, 0.61, 0.99);
+  filter: invert(1);
 }
 
 /* Header icons */
