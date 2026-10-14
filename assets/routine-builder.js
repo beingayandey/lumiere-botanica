@@ -360,7 +360,28 @@
     var bundleItems = [];
 
     if (stepsContainer) {
-      if (routine.length === 0) {
+      if (state.products.length === 0) {
+        var skeletonHtml = '';
+        var stepCount = state.routinePreference === 'extended' ? 5 : 4;
+        for (var i = 1; i <= stepCount; i++) {
+          skeletonHtml += '<div class="routine-card routine-card--skeleton" aria-hidden="true">' +
+            '<div class="routine-card__image-wrap">' +
+              '<div class="skeleton-shimmer" style="width: 100%; height: 200px; border-radius: 8px;"></div>' +
+            '</div>' +
+            '<div class="routine-card__info">' +
+              '<div class="skeleton-shimmer" style="width: 25%; height: 1.2rem; margin-bottom: 0.8rem; border-radius: 3px;"></div>' +
+              '<div class="skeleton-shimmer" style="width: 70%; height: 2rem; margin-bottom: 0.8rem; border-radius: 3px;"></div>' +
+              '<div class="skeleton-shimmer" style="width: 30%; height: 1.4rem; margin-bottom: 1.2rem; border-radius: 3px;"></div>' +
+              '<div class="skeleton-shimmer" style="width: 90%; height: 3.6rem; border-radius: 6px;"></div>' +
+            '</div>' +
+            '<div class="routine-card__actions">' +
+              '<div class="skeleton-shimmer" style="width: 100%; height: 4.8rem; border-radius: 4px;"></div>' +
+            '</div>' +
+          '</div>';
+        }
+        stepsContainer.innerHTML = skeletonHtml;
+        return;
+      } else if (routine.length === 0) {
         stepsContainer.innerHTML = '<div class="routine-empty-state"><h3>No Matching Formulations Found</h3><p>We could not find active products matching this exact combination. Please adjust your answers or explore our full botanical catalog.</p><button type="button" class="routine-btn routine-btn--primary" id="btnRestartEmpty">Restart Routine Quiz</button></div>';
       } else {
         var html = '';
@@ -381,7 +402,7 @@
           html += '  <div class="routine-card__image-wrap">';
           html += '    <span class="routine-card__step-pill">Step ' + item.stepNumber + ': ' + item.stepTitle + '</span>';
           if (p.featured_image) {
-            html += '    <img src="' + p.featured_image + '" alt="' + p.title + '" class="routine-card__image" loading="lazy">';
+            html += '    <img src="' + p.featured_image + '" alt="' + p.title + '" width="240" height="240" class="routine-card__image" loading="lazy">';
           }
           html += '  </div>';
           html += '  <div class="routine-card__info">';

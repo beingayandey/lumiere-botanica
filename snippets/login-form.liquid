@@ -5,21 +5,21 @@
             <input name="utf8" type="hidden" value="✓" />
             <div class="login-form__form">
                 <div class="form-field">
-                    <label class="form-label">
+                    <label class="form-label" for="customer_email">
                         {{ 'customer.login.email' | t }}
                         <em class="text-danger">*</em>
                     </label>
                     <input id="customer_email" class="form-control" type="email" value="" name="customer[email]" placeholder="{{ 'customer.login.placeholder' | t }}" >
                 </div>
                 <div class="form-field">
-                    <label class="form-label">
+                    <label class="form-label" for="customer_password">
                         {{ 'customer.login.password' | t }}
                         <em class="text-danger">*</em>
                     </label>
                     <input id="customer_password" autocomplete="off" class="form-control" type="password" value="" placeholder="" name="customer[password]" >
                 </div>
                 <div class="form-actions text-center">
-                    <input type="submit" class="button" value="{{ 'customer.login.login' | t }}">
+                    <input type="submit" class="button" value="{{ 'customer.login.login' | t }}" aria-label="{{ 'customer.login.login' | t }}">
                     <a class="forgot-password" href="{{ routes.account_login_url }}#recover" aria-label="forgot password">
                         {{ 'customer.login.forgot_password' | t }}
                     </a>

@@ -114,7 +114,7 @@
                 assign fetch_priority = 'high'
                 assign slide_loading = 'eager'
               else
-                assign fetch_priority = 'auto'
+                assign fetch_priority = 'low'
                 assign slide_loading = 'lazy'
               endif
             -%}
@@ -125,7 +125,7 @@
               {{
                 block.settings.image
                 | image_url: width: 3840
-                | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority, loading: slide_loading
+                | image_tag: width: block.settings.image.width, height: block.settings.image.height, fetchpriority: fetch_priority, loading: slide_loading, alt: block.settings.heading | default: 'Lumière Botanica'
               }}
             </picture>
            

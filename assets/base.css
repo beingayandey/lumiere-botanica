@@ -10196,3 +10196,72 @@ input[type="checkbox"]:checked + label span {
 .map iframe {
   width: 100%;
 }
+
+/* ==========================================================================
+   Phase 6: Universal Accessibility & Motion Foundations
+   ========================================================================== */
+
+/* High-contrast focus indicator for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #274b4f !important;
+  outline-offset: 2px !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[role="radio"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #274b4f !important;
+  outline-offset: 2px !important;
+}
+
+/* Full support for prefers-reduced-motion across all transitions & animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skeleton-shimmer::after {
+    display: none !important;
+    animation: none !important;
+  }
+}
+
+/* Universal Skeleton Shimmer */
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(39, 75, 79, 0.08);
+  border-radius: 4px;
+}
+
+.skeleton-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: skeleton-shimmer-anim 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-shimmer-anim {
+  100% {
+    transform: translateX(100%);
+  }
+}

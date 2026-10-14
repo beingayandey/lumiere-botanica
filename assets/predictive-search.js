@@ -209,6 +209,9 @@ class PredictiveSearch extends SearchForm {
       return;
     }
 
+    // Render component-specific skeleton matching results dimensions
+    this.renderSkeleton();
+
     if (this.abortController) {
       this.abortController.abort();
     }
@@ -246,6 +249,43 @@ class PredictiveSearch extends SearchForm {
         }
         this.renderSearchError(searchTerm);
       });
+  }
+
+  renderSkeleton() {
+    this.predictiveSearchResults.innerHTML = `
+      <div id="predictive-search-results" role="listbox" aria-busy="true">
+        <div class="predictive-search__results-groups-wrapper" style="padding: 1.5rem;">
+          <div class="predictive-search__result-group">
+            <div class="skeleton-shimmer" style="width: 100px; height: 1.2rem; margin-bottom: 1.5rem; border-radius: 3px;"></div>
+            <ul class="predictive-search__results-list list-unstyled" role="group">
+              <li class="predictive-search__list-item" aria-hidden="true" style="padding: 0.8rem 0; display: flex; gap: 1.5rem; align-items: center;">
+                <div class="skeleton-shimmer" style="width: 50px; height: 50px; border-radius: 4px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <div class="skeleton-shimmer" style="width: 70%; height: 1.4rem; margin-bottom: 0.6rem; border-radius: 3px;"></div>
+                  <div class="skeleton-shimmer" style="width: 30%; height: 1.2rem; border-radius: 3px;"></div>
+                </div>
+              </li>
+              <li class="predictive-search__list-item" aria-hidden="true" style="padding: 0.8rem 0; display: flex; gap: 1.5rem; align-items: center;">
+                <div class="skeleton-shimmer" style="width: 50px; height: 50px; border-radius: 4px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <div class="skeleton-shimmer" style="width: 85%; height: 1.4rem; margin-bottom: 0.6rem; border-radius: 3px;"></div>
+                  <div class="skeleton-shimmer" style="width: 25%; height: 1.2rem; border-radius: 3px;"></div>
+                </div>
+              </li>
+              <li class="predictive-search__list-item" aria-hidden="true" style="padding: 0.8rem 0; display: flex; gap: 1.5rem; align-items: center;">
+                <div class="skeleton-shimmer" style="width: 50px; height: 50px; border-radius: 4px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <div class="skeleton-shimmer" style="width: 60%; height: 1.4rem; margin-bottom: 0.6rem; border-radius: 3px;"></div>
+                  <div class="skeleton-shimmer" style="width: 35%; height: 1.2rem; border-radius: 3px;"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    `;
+    this.setAttribute('results', true);
+    this.open();
   }
 
   renderSearchError(searchTerm) {

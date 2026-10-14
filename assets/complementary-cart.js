@@ -52,7 +52,7 @@
       html += '<div class="complementary-card" data-product-handle="' + product.handle + '" style="display: flex; align-items: center; justify-content: space-between; padding: 0.8rem; background: #fff; border-radius: 6px; border: 1px solid rgba(39, 75, 79, 0.08); gap: 1rem;">' +
         '<div style="display: flex; align-items: center; gap: 1rem; min-width: 0;">' +
           '<a href="' + product.url + '" style="flex-shrink: 0; width: 56px; height: 56px; border-radius: 4px; overflow: hidden; background: #fafafa; display: flex; align-items: center; justify-content: center;">' +
-            '<img src="' + img + '" alt="' + (product.title || '').replace(/"/g, '&quot;') + '" style="max-width: 100%; max-height: 100%; object-fit: cover;" loading="lazy">' +
+            '<img src="' + img + '" alt="' + (product.title || '').replace(/"/g, '&quot;') + '" width="56" height="56" style="max-width: 100%; max-height: 100%; object-fit: cover;" loading="lazy">' +
           '</a>' +
           '<div style="min-width: 0;">' +
             '<h4 style="font-size: 1.25rem; font-weight: 600; margin: 0 0 0.3rem; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">' +
@@ -73,9 +73,34 @@
     container.innerHTML = html;
   }
 
+  function renderSkeleton(container) {
+    if (!container) return;
+    var skeletonHtml = '';
+    for (var i = 0; i < 2; i++) {
+      skeletonHtml += '<div class="complementary-card complementary-card--skeleton" aria-hidden="true" style="display: flex; align-items: center; justify-content: space-between; padding: 0.8rem; background: #fff; border-radius: 6px; border: 1px solid rgba(39, 75, 79, 0.08); gap: 1rem; margin-bottom: 0.8rem;">' +
+        '<div style="display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0;">' +
+          '<div class="skeleton-shimmer" style="width: 56px; height: 56px; border-radius: 4px; flex-shrink: 0;"></div>' +
+          '<div style="flex: 1; min-width: 0;">' +
+            '<div class="skeleton-shimmer" style="width: 70%; height: 1.3rem; margin-bottom: 0.6rem; border-radius: 3px;"></div>' +
+            '<div class="skeleton-shimmer" style="width: 35%; height: 1.2rem; border-radius: 3px;"></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="skeleton-shimmer" style="width: 58px; height: 32px; border-radius: 4px; flex-shrink: 0;"></div>' +
+      '</div>';
+    }
+    container.innerHTML = skeletonHtml;
+  }
+
   function fetchAndRenderRecommendations() {
     var containers = document.querySelectorAll('.cart-complementary-items');
     if (!containers.length) return;
+
+    // Show skeleton placeholders during async loading
+    containers.forEach(function(c) {
+      if (!c.querySelector('.complementary-card:not(.complementary-card--skeleton)')) {
+        renderSkeleton(c);
+      }
+    });
 
     var routerPrefix = window.router || '';
     if (routerPrefix === '/') routerPrefix = '';

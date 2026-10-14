@@ -92,6 +92,7 @@
                                 class="input-group__field newsletter__input{% if form.errors %} input--error{% endif %}"
                                 value="{{ form.email }}"
                                 placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                                aria-label="{{ 'general.newsletter_form.email_placeholder' | t | default: 'Email address' }}"
                                 aria-required="true"
                                 required
                                 autocapitalize="off"
@@ -100,7 +101,7 @@
                                     aria-describedby="{{ formId }}-email-error"
                                     data-form-status
                                 {% endif %}>
-                            <input class="button" type="submit" value="{{ 'general.newsletter_form.submit' | t }}">
+                            <input class="button" type="submit" value="{{ 'general.newsletter_form.submit' | t }}" aria-label="{{ 'general.newsletter_form.submit' | t | default: 'Subscribe to newsletter' }}">
                         </div>
                     {% endform %}
                 </div>
