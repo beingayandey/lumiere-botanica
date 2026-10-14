@@ -34,7 +34,26 @@
     if ratio == 0 or ratio == null
       assign ratio = 1
     endif
-    assign show_product_wishlist =  settings.show_product_wishlist 
+
+    assign fallback_image = null
+    assign fallback_alt = card_product.title | escape
+
+    case card_product.handle
+      when 'white-tea-jasmine-antioxidant-essence'
+        assign fallback_image = 'product-white-tea-jasmine-essence.jpg' | asset_url
+      when 'squalane-marine-algae-firming-cream'
+        assign fallback_image = 'product-squalane-marine-cream.jpg' | asset_url
+      when 'triple-lipid-overnight-recovery-mask'
+        assign fallback_image = 'product-triple-lipid-mask.jpg' | asset_url
+      when 'green-tea-aloe-soothing-gel-cleanser'
+        assign fallback_image = 'product-green-tea-aloe-cleanser.jpg' | asset_url
+    endcase
+
+    if card_product.featured_media == blank and fallback_image == null
+      assign fallback_image = 'product-botanical-fallback.jpg' | asset_url
+    endif
+
+    assign show_product_wishlist = settings.show_product_wishlist 
     assign show_product_quickview = settings.show_product_quickview 
     assign show_compare_product = settings.enable_compare_product 
   -%}
@@ -42,17 +61,17 @@
     <div
       class="
         card card--{{ settings.card_style }}
-        {% if card_product.featured_media %} card--media{% else %} card--text{% endif %}
+        {% if card_product.featured_media or fallback_image %} card--media{% else %} card--text{% endif %}
         {% if settings.card_style == 'card' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
         {% if image_shape and image_shape != 'default' %} card--shape{% endif %}
         {% if extend_height %} card--extend-height{% endif %}
-        {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
+        {% if card_product.featured_media == nil and fallback_image == nil and settings.card_style == 'card' %} ratio{% endif %}
         {% if horizontal_class %} card--horizontal{% endif %}
       "
       style="--ratio-percent: {{ 1.0 | divided_by: ratio | times: 100 }}%;"
     >
       <div
-        class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
+        class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or fallback_image or settings.card_style == 'standard' %} ratio{% endif %}"
         style="--ratio-percent: {{ 1.0 | divided_by: ratio | times: 100 }}%;"
       >
        <a href="{{ card_product.url }}"></a>
@@ -132,6 +151,21 @@
                   height="{{ card_product.media[1].height }}"
                 >
               {%- endif -%}
+            </div>
+          </div>
+        {%- elsif fallback_image != null -%}
+          <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
+            <div class="media media--transparent media--hover-effect">
+              <img
+                src="{{ fallback_image }}"
+                alt="{{ fallback_alt }}"
+                class="motion-reduce"
+                {% unless lazy_load == false %}
+                  loading="lazy"
+                {% endunless %}
+                width="800"
+                height="800"
+              >
             </div>
           </div>
         {%- else -%}

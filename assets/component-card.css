@@ -722,3 +722,151 @@ div[layout-type=list] .article-card-wrapper .article-card {
   border-radius: 4px;
   margin: 0.4rem auto 0;
 }
+
+/* ==========================================================================
+   Standardised Product Card Grid & Aspect Ratio Alignment
+   ========================================================================== */
+
+.card-wrapper {
+  color: inherit;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  text-decoration: none;
+  text-align: var(--text-alignment);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Standardize card inner to exact square 1:1 aspect ratio */
+.card:not(.card--horizontal) .card__inner {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--border-radius, 4px);
+  background-color: #faf9f6;
+}
+
+@supports (aspect-ratio: 1 / 1) {
+  .card:not(.card--horizontal) .card__inner.ratio::before {
+    display: none;
+  }
+}
+
+/* Media fills the container consistently */
+.card:not(.card--horizontal) .card__media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.card:not(.card--horizontal) .card__media .media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card:not(.card--horizontal) .card__media .media > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.card:not(.card--horizontal) .card__media .placeholder-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #f6f5f0;
+}
+
+/* Ensure inner card never superimposes product title over image */
+.card--standard .card__inner .card__information,
+.card--card .card__inner .card__information {
+  display: none !important;
+}
+
+/* Standardized outer card content */
+.card:not(.card--horizontal) > .card__content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1.4rem 0.5rem 0.8rem;
+  width: 100%;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.card:not(.card--horizontal) > .card__content .card__information {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  padding: 0;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+/* Consistent 2-line title clamp with reserved line-height to align prices */
+.card:not(.card--horizontal) .card__heading {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.8em;
+  line-height: 1.4;
+  margin: 0 0 0.8rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+/* Stable price alignment pushed to bottom of card content */
+.card:not(.card--horizontal) .card-information {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.4rem;
+  text-align: center;
+}
+
+/* Pin wishlist heart button consistently */
+.card:not(.card--horizontal) .product-card_wishlist {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 5;
+}
+
+/* Pin sale/sold-out badge consistently */
+.card:not(.card--horizontal) .card__badge {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  z-index: 5;
+}
