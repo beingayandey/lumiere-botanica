@@ -30,6 +30,12 @@ class CartDrawer extends HTMLElement {
     // here the animation doesn't seem to always get triggered. A timeout seem to help
     setTimeout(() => {
       this.classList.add('animate', 'active');
+      if (window.eboost && typeof window.eboost.progressBar === 'function') {
+        window.eboost.progressBar();
+      }
+      if (window.BotanicalComplementary && typeof window.BotanicalComplementary.init === 'function') {
+        window.BotanicalComplementary.init();
+      }
     });
 
     this.addEventListener(
@@ -82,6 +88,12 @@ class CartDrawer extends HTMLElement {
     setTimeout(() => {
       this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
       this.open();
+      if (window.eboost && typeof window.eboost.progressBar === 'function') {
+        window.eboost.progressBar();
+      }
+      if (window.BotanicalComplementary && typeof window.BotanicalComplementary.init === 'function') {
+        window.BotanicalComplementary.init();
+      }
     });
   }
 
@@ -110,9 +122,11 @@ class CartDrawer extends HTMLElement {
   }
 }
 
-customElements.define('cart-drawer', CartDrawer);
+if (!customElements.get('cart-drawer')) {
+  customElements.define('cart-drawer', CartDrawer);
+}
 
-class CartDrawerItems extends CartItems {
+class CartDrawerItems extends (window.CartItems || CartItems) {
   getSectionsToRender() {
     return [
       {
@@ -129,4 +143,6 @@ class CartDrawerItems extends CartItems {
   }
 }
 
-customElements.define('cart-drawer-items', CartDrawerItems);
+if (!customElements.get('cart-drawer-items')) {
+  customElements.define('cart-drawer-items', CartDrawerItems);
+}

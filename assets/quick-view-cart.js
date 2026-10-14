@@ -1,19 +1,20 @@
-class CartRemoveButton extends HTMLElement {
-  constructor() {
-    super();
+if (!customElements.get('cart-remove-button')) {
+  class CartRemoveButton extends HTMLElement {
+    constructor() {
+      super();
 
-    this.addEventListener('click', (event) => {
-      event.preventDefault();
-      const cartItems = this.closest('data-cart-wrapper');
-      cartItems.updateQuantity(this.dataset.index, 0);
-      
-    });
+      this.addEventListener('click', (event) => {
+        event.preventDefault();
+        const cartItems = this.closest('data-cart-wrapper') || this.closest('cart-items') || this.closest('cart-drawer-items');
+        if (cartItems) cartItems.updateQuantity(this.dataset.index, 0);
+      });
+    }
   }
+
+  customElements.define('cart-remove-button', CartRemoveButton);
 }
 
-customElements.define('cart-remove-button', CartRemoveButton);
-
-class CartItems extends HTMLElement {
+class QuickViewCartItems extends HTMLElement {
   constructor() {
     super();
     this.lineItemStatusElement =
@@ -75,10 +76,11 @@ class CartItems extends HTMLElement {
   }
 
   getSectionsToRender() {
+    const tableEl = document.getElementById('cart-quickview__table');
     return [
       {
         id: 'cart-quickview',
-        section: document.getElementById('cart-quickview__table').dataset.id,
+        section: tableEl ? tableEl.dataset.id : 'cart-quickview',
         selector: '.js-contents',
       },
       {
@@ -101,7 +103,7 @@ class CartItems extends HTMLElement {
       line,
       quantity,
       sections: this.getSectionsToRender().map((section) => section.section),
-      sections_url: window.location.pathname + 'cart' ,
+      sections_url: window.location.pathname,
     });
     
     fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ body } })
@@ -194,19 +196,19 @@ class CartItems extends HTMLElement {
 
   enableLoading(line) {
     const mainCartItems = document.getElementById('cart-quickview__table');
-    mainCartItems.classList.add('cart__items--disabled');
+    if (mainCartItems) mainCartItems.classList.add('cart__items--disabled');
 
     const cartItemElements = this.querySelectorAll(`#CartItem-${line} .loading__spinner`);
 
     [...cartItemElements].forEach((overlay) => overlay.classList.remove('hidden'));
 
-    document.activeElement.blur();
-    this.lineItemStatusElement.setAttribute('aria-hidden', false);
+    if (document.activeElement) document.activeElement.blur();
+    if (this.lineItemStatusElement) this.lineItemStatusElement.setAttribute('aria-hidden', false);
   }
 
   disableLoading(line) {
-    const mainCartItems = document.getElementById('cart-quickview__table') ;
-    mainCartItems.classList.remove('cart__items--disabled');
+    const mainCartItems = document.getElementById('cart-quickview__table');
+    if (mainCartItems) mainCartItems.classList.remove('cart__items--disabled');
 
     const cartItemElements = this.querySelectorAll(`#CartItem-${line} .loading__spinner`);
 
@@ -214,7 +216,9 @@ class CartItems extends HTMLElement {
   }
 }
 
-customElements.define('data-cart-wrapper', CartItems);
+if (!customElements.get('data-cart-wrapper')) {
+  customElements.define('data-cart-wrapper', QuickViewCartItems);
+}
 
 if (!customElements.get('cart-note')) {
   customElements.define(

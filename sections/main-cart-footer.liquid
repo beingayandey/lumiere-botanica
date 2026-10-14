@@ -18,6 +18,15 @@
   id="main-cart-footer"
   data-id="{{ section.id }}"
 >
+    <div class="cart-page__complementary" style="margin-bottom: 2.5rem; padding: 2rem; border-radius: 8px; border: 1px solid rgba(39, 75, 79, 0.1); background: rgba(39, 75, 79, 0.02); display: none;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.5rem; font-weight: 600; color: #274b4f; margin: 0; text-transform: uppercase; letter-spacing: 0.05em;">Botanical Pairings</h3>
+        <span style="font-size: 1.25rem; color: rgba(var(--color-foreground), 0.65);">Frequently paired with your bag</span>
+      </div>
+      <div class="cart-complementary-items" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+    </div>
+    <script src="{{ 'complementary-cart.js' | asset_url }}" defer="defer"></script>
+
      <h2 class="box-title title">{{- 'cart.general.order_summary' | t -}}</h2>
   
     <div class="cart__footer isolate">

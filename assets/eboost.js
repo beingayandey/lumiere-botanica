@@ -81,41 +81,55 @@ var eboost = '';
         	}
         },
         progressBar: function() {
-            if ($('.cart__progress_bar.hide').length) {
-                $(this).removeClass('hide');
-            }
-            if ($('.cart__progress_bar').length) {
+            var updateBars = function() {
+                var $barWrappers = $('.cart__progress_bar');
+                if (!$barWrappers.length) return;
+                $barWrappers.removeClass('hide');
 
-                var $priceFreeShip = parseInt(window.priceFreeShipping) * 100;
-                $.getJSON( window.router + '/cart.js').then(
-                    function(cart) {
-                        var $cartTotalPrice =  cart.total_price,
-                            $differencePrice = $priceFreeShip - $cartTotalPrice,
-                            $percent = Math.floor(($cartTotalPrice * 100) / $priceFreeShip);
-                        if($percent > 100)
-                           $percent = 100;
+                var rawThreshold = parseFloat(window.priceFreeShipping);
+                if (isNaN(rawThreshold) || rawThreshold <= 0) return;
+                var $priceFreeShip = Math.round(rawThreshold * 100);
 
-                        if ($percent == 100) {
-                            var progress = '<div class="progress"><div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:'+ $percent +'%" aria-valuenow="'+ $percent +'" aria-valuemin="0" aria-valuemax="100">'+$percent+'%</div></div>';
-                            $('.progress_bar_shipping').addClass('success');
-                            $('.progress_bar_shipping').html(progress);
-                            $('.progress_bar_shipping_message').html( window.freeShipping )
-                        } else {
-                            if ($percent < 50) {
-                                var progress = '<div class="progress"><div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" role="progressbar" style="width:'+ $percent +'%" aria-valuenow="'+ $percent +'" aria-valuemin="0" aria-valuemax="100">'+$percent+'%</div></div>';
-                            } else {
-                                var progress = '<div class="progress"><div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:'+ $percent +'%" aria-valuenow="'+ $percent +'" aria-valuemin="0" aria-valuemax="100">'+$percent+'%</div></div>';
-                            }
-                            var $price = eboost.formatMoney($differencePrice);
-                            $('.progress_bar_shipping').removeClass('success');
-                            $('.progress_bar_shipping').html(progress);
-                            $('.progress_bar_shipping_message').html( window.shippingMessage.replace('[price]', $price))
-                        }
+                var routerPrefix = window.router || '';
+                if (routerPrefix === '/') routerPrefix = '';
 
-                        
+                $.getJSON(routerPrefix + '/cart.js').then(function(cart) {
+                    var $cartTotalPrice = cart.total_price || 0;
+                    var $differencePrice = $priceFreeShip - $cartTotalPrice;
+                    var $percent = Math.floor(($cartTotalPrice * 100) / $priceFreeShip);
+                    if ($percent > 100) $percent = 100;
+                    if ($percent < 0) $percent = 0;
+
+                    var disclaimerHTML = '<div class="progress_bar_shipping_disclaimer" style="font-size: 1.15rem; color: rgba(var(--color-foreground), 0.65); margin-top: 0.4rem; font-style: italic;">*Store promotional threshold based on subtotal. Taxes and shipping calculated at checkout.</div>';
+
+                    if ($percent >= 100) {
+                        var progress = '<div class="progress" style="height: 0.8rem; border-radius: 4px; background: rgba(39, 75, 79, 0.1);"><div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%; background: #4a7c59; border-radius: 4px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div>';
+                        $('.progress_bar_shipping').addClass('success').html(progress);
+                        var successMsg = window.freeShipping || "Congratulations! You've unlocked Free Standard Shipping!";
+                        $('.progress_bar_shipping_message').html('<span style="color: #4a7c59; font-weight: 600;">' + successMsg + '</span>');
+                    } else {
+                        var progress = '<div class="progress" style="height: 0.8rem; border-radius: 4px; background: rgba(39, 75, 79, 0.1);"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:' + $percent + '%; background: linear-gradient(90deg, #274b4f, #3a696e); border-radius: 4px;" aria-valuenow="' + $percent + '" aria-valuemin="0" aria-valuemax="100"></div></div>';
+                        var $price = eboost.formatMoney($differencePrice);
+                        var msgTemplate = window.shippingMessage || "Add [price] more for Free Standard Shipping!";
+                        $('.progress_bar_shipping').removeClass('success').html(progress);
+                        $('.progress_bar_shipping_message').html('<span style="color: #274b4f; font-weight: 600;">' + msgTemplate.replace('[price]', $price) + '</span>');
                     }
-                );
-                
+
+                    $('.cart__progress_bar').each(function() {
+                        if (!$(this).find('.progress_bar_shipping_disclaimer').length) {
+                            $(this).append(disclaimerHTML);
+                        }
+                    });
+                });
+            };
+
+            updateBars();
+
+            if (!window.__eboostProgressBarSubscribed && typeof subscribe === 'function' && window.PUB_SUB_EVENTS) {
+                window.__eboostProgressBarSubscribed = true;
+                subscribe(PUB_SUB_EVENTS.cartUpdate, function() {
+                    setTimeout(updateBars, 150);
+                });
             }
         },
         customSortSelect: function(){

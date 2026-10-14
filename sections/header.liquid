@@ -77,11 +77,13 @@
 <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'slick-slider.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'eboost.js' | asset_url }}" defer="defer"></script>
-{%- if request.page_type != 'cart' -%}
+{%- if request.page_type != 'cart' and settings.cart_type != 'drawer' -%}
 <script src="{{ 'quick-view-cart.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 {%- if settings.cart_type == "drawer" -%}
+  <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'complementary-cart.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
 <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
@@ -231,7 +233,12 @@
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
 
 
-  {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
+  {%- if settings.cart_type == 'notification' -%}
+    {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
+  {%- endif -%}
+  {%- if settings.cart_type == 'drawer' -%}
+    {%- render 'cart-drawer' -%}
+  {%- endif -%}
 
 
 {% javascript %}

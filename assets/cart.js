@@ -1,18 +1,21 @@
-class CartRemoveButton extends HTMLElement {
-  constructor() {
-    super();
+if (!customElements.get('cart-remove-button')) {
+  class CartRemoveButton extends HTMLElement {
+    constructor() {
+      super();
 
-    this.addEventListener('click', (event) => {
-      event.preventDefault();
-      const cartItems = this.closest('cart-items') || this.closest('cart-drawer-items');
-      cartItems.updateQuantity(this.dataset.index, 0);
-    });
+      this.addEventListener('click', (event) => {
+        event.preventDefault();
+        const cartItems = this.closest('cart-items') || this.closest('cart-drawer-items') || this.closest('data-cart-wrapper');
+        if (cartItems) cartItems.updateQuantity(this.dataset.index, 0);
+      });
+    }
   }
+
+  customElements.define('cart-remove-button', CartRemoveButton);
 }
 
-customElements.define('cart-remove-button', CartRemoveButton);
-
-class CartItems extends HTMLElement {
+if (typeof window.CartItems === 'undefined') {
+  window.CartItems = class extends HTMLElement {
   constructor() {
     super();
     this.lineItemStatusElement =
@@ -43,7 +46,8 @@ class CartItems extends HTMLElement {
   }
 
   onChange(event) {
-    this.updateQuantity(event.target.dataset.index, event.target.value, document.activeElement.getAttribute('name'), event.target.dataset.quantityVariantId);
+    const activeName = (document.activeElement && typeof document.activeElement.getAttribute === 'function') ? document.activeElement.getAttribute('name') : '';
+    this.updateQuantity(event.target.dataset.index, event.target.value, activeName, event.target.dataset.quantityVariantId);
   }
 
   onCartUpdate() {
@@ -176,6 +180,11 @@ class CartItems extends HTMLElement {
       })
       .finally(() => {
         this.disableLoading(line);
+        if (window.eboost && typeof window.eboost.progressBar === 'function') {
+          setTimeout(function() {
+            window.eboost.progressBar();
+          }, 200);
+        }
       });
   }
 
@@ -223,8 +232,11 @@ class CartItems extends HTMLElement {
     cartDrawerItemElements.forEach((overlay) => overlay.classList.add('hidden'));
   }
 }
+}
 
-customElements.define('cart-items', CartItems);
+if (!customElements.get('cart-items')) {
+  customElements.define('cart-items', window.CartItems);
+}
 
 if (!customElements.get('cart-note')) {
   customElements.define(

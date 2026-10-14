@@ -929,25 +929,25 @@
         "type": "checkbox",
         "id": "enable_progress_bar_shipping",
         "label": "Enable Progress Bar Shipping?",
-        "default": false
+        "default": true
       },
       {
         "type": "text",
         "id": "shipping_price",
         "label": "Total price of order to offer free shipping",
-        "default": "1001"
+        "default": "75"
       },
       {
         "type": "text",
         "id": "shipping_message",
         "label": "Message",
-        "default": "Only [price] away from Free Shipping"
+        "default": "Add [price] more for Free Standard Shipping!"
       },
       {
         "type": "text",
         "id": "free_shipping",
         "label": "Free shipping",
-        "default": "You qualify for free shipping"
+        "default": "🎉 You've unlocked Free Standard Shipping!"
       }
     ]
   },
@@ -2102,11 +2102,19 @@
         "id": "cart_type",
         "options": [
           {
+            "value": "drawer",
+            "label": "t:settings_schema.cart.settings.cart_type.drawer.label"
+          },
+          {
             "value": "notification",
             "label": "t:settings_schema.cart.settings.cart_type.notification.label"
+          },
+          {
+            "value": "page",
+            "label": "t:settings_schema.cart.settings.cart_type.page.label"
           }
         ],
-        "default": "notification",
+        "default": "drawer",
         "label": "t:settings_schema.cart.settings.cart_type.label"
       },
       {

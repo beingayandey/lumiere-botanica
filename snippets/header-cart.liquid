@@ -1,7 +1,9 @@
-<a class="navUser-action" href="javascript:void(0)" aria-label="cart" data-cart-pc>
+<a class="navUser-action" href="{% if settings.cart_type == 'page' %}{{ routes.cart_url }}{% else %}javascript:void(0){% endif %}" aria-label="{{ 'templates.cart.cart' | t | default: 'Cart' }}" id="cart-icon-bubble" {% if settings.cart_type == 'drawer' %}role="button" aria-haspopup="dialog" onclick="if (!window.location.pathname.endsWith('/cart')) { document.querySelector('cart-drawer')?.open(this); }"{% else %}data-cart-pc{% endif %}>
     <svg class="icon"><use xlink:href="#icon-cart" /></svg>
-    <span class="countPill cart-quantity" data-cart-count id="cart-icon-bubble">{{ cart.item_count }}</span>
+    <span class="countPill cart-quantity" data-cart-count>{{ cart.item_count }}</span>
 </a>
 {% unless template == 'cart' %}
-{% render 'cart-quickview' %}
+  {% if settings.cart_type != 'drawer' and settings.cart_type != 'page' %}
+    {% render 'cart-quickview' %}
+  {% endif %}
 {% endunless %}

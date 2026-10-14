@@ -9,6 +9,7 @@
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'complementary-cart.js' | asset_url }}" defer="defer"></script>
 
 <style>
   .drawer {
@@ -69,6 +70,13 @@
           {% render 'icon-close' %}
         </button>
       </div>
+      {%- if settings.enable_progress_bar_shipping -%}
+        <div class="cart-drawer__progress-bar cart__progress_bar" style="padding: 1.2rem 2rem 1.4rem; background: rgba(39, 75, 79, 0.04); border-bottom: 1px solid rgba(var(--color-foreground), 0.08);">
+          <div class="progress_bar_shipping"></div>
+          <div class="progress_bar_shipping_message" style="font-size: 1.3rem; font-weight: 500; color: #274b4f;"></div>
+          <div class="progress_bar_shipping_disclaimer" style="font-size: 1.15rem; color: rgba(var(--color-foreground), 0.65); margin-top: 0.4rem; font-style: italic;">*Store promotional threshold based on subtotal. Taxes and shipping calculated at checkout.</div>
+        </div>
+      {%- endif -%}
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
@@ -468,6 +476,15 @@
         {%- endif -%}
 
         <!-- Start blocks -->
+        <!-- Complementary Botanical Pairings -->
+        <div class="cart-drawer__complementary" style="padding: 1.5rem 2rem; border-top: 1px solid rgba(var(--color-foreground), 0.08); background: rgba(39, 75, 79, 0.02); display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.35rem; font-weight: 600; color: #274b4f; margin: 0; text-transform: uppercase; letter-spacing: 0.05em;">Botanical Pairings</h3>
+            <span style="font-size: 1.15rem; color: rgba(var(--color-foreground), 0.65);">Pairs well with your bag</span>
+          </div>
+          <div class="cart-complementary-items" style="display: flex; flex-direction: column; gap: 0.8rem;"></div>
+        </div>
+
         <!-- Subtotals -->
 
         <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
