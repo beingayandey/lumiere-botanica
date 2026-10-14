@@ -41,7 +41,9 @@ class FacetFiltersForm extends HTMLElement {
       '.facets-container .loading__spinner, facet-filters-form .loading__spinner'
     );
     loadingSpinners.forEach((spinner) => spinner.classList.remove('hidden'));
-    document.getElementById('ProductGridContainer').querySelector('.collection').classList.add('loading');
+    const gridContainer = document.getElementById('ProductGridContainer');
+    const collectionElem = gridContainer ? gridContainer.querySelector('.collection') : null;
+    if (collectionElem) collectionElem.classList.add('loading');
     if (countContainer) {
       countContainer.classList.add('loading');
     }
@@ -83,27 +85,32 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   static renderProductGridContainer(html) {
-    document.getElementById('ProductGridContainer').innerHTML = new DOMParser()
-      .parseFromString(html, 'text/html')
-      .getElementById('ProductGridContainer').innerHTML;
-
-    document
-      .getElementById('ProductGridContainer')
-      .querySelectorAll('.scroll-trigger')
-      .forEach((element) => {
+    const parsed = new DOMParser().parseFromString(html, 'text/html');
+    const newContainer = parsed.getElementById('ProductGridContainer');
+    const currentContainer = document.getElementById('ProductGridContainer');
+    if (newContainer && currentContainer) {
+      currentContainer.innerHTML = newContainer.innerHTML;
+      currentContainer.querySelectorAll('.scroll-trigger').forEach((element) => {
         element.classList.add('scroll-trigger--cancel');
       });
+    }
   }
 
   static renderProductCount(html) {
-    const count = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductCount').innerHTML;
-    const container = document.getElementById('ProductCount');
-    const containerDesktop = document.getElementById('ProductCountDesktop');
-    container.innerHTML = count;
-    container.classList.remove('loading');
-    if (containerDesktop) {
-      containerDesktop.innerHTML = count;
-      containerDesktop.classList.remove('loading');
+    const parsed = new DOMParser().parseFromString(html, 'text/html');
+    const countElement = parsed.getElementById('ProductCount') || parsed.getElementById('ProductCountDesktop');
+    if (countElement) {
+      const count = countElement.innerHTML;
+      const container = document.getElementById('ProductCount');
+      const containerDesktop = document.getElementById('ProductCountDesktop');
+      if (container) {
+        container.innerHTML = count;
+        container.classList.remove('loading');
+      }
+      if (containerDesktop) {
+        containerDesktop.innerHTML = count;
+        containerDesktop.classList.remove('loading');
+      }
     }
     const loadingSpinners = document.querySelectorAll(
       '.facets-container .loading__spinner, facet-filters-form .loading__spinner'
@@ -195,7 +202,13 @@ class FacetFiltersForm extends HTMLElement {
       document.querySelector(selector).innerHTML = html.querySelector(selector).innerHTML;
     });
 
-    document.getElementById('FacetFiltersFormMobile').closest('menu-drawer').bindEvents();
+    const mobileForm = document.getElementById('FacetFiltersFormMobile');
+    if (mobileForm) {
+      const drawer = mobileForm.closest('menu-drawer');
+      if (drawer && typeof drawer.bindEvents === 'function') {
+        drawer.bindEvents();
+      }
+    }
   }
 
   static renderCounts(source, target) {

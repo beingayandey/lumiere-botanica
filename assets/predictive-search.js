@@ -98,6 +98,11 @@ class PredictiveSearch extends SearchForm {
         event.preventDefault();
         this.switchOption('down');
         break;
+      case 'Escape':
+        event.preventDefault();
+        this.close();
+        if (this.input) this.input.focus();
+        break;
       case 'Enter':
         event.preventDefault();
         this.selectOption();
@@ -169,11 +174,24 @@ class PredictiveSearch extends SearchForm {
   }
 
   selectOption() {
-    const selectedOption = this.querySelector('[aria-selected="true"] a, button[aria-selected="true"]');
+    const selectedOption = this.querySelector('[aria-selected="true"] a, button[aria-selected="true"], [aria-selected="true"]');
 
     if (selectedOption) {
+      const link = selectedOption.tagName?.toLowerCase() === 'a' ? selectedOption : selectedOption.querySelector('a');
+      if (link) {
+        this.close();
+        link.click();
+        return;
+      }
+      if (selectedOption.tagName?.toLowerCase() === 'button') {
+        this.close();
+        selectedOption.click();
+        return;
+      }
       this.close();
-      selectedOption.click();
+      if (this.input && this.input.form) {
+        this.input.form.submit();
+      }
     } else if (this.getQuery().length) {
       this.close();
       if (this.input && this.input.form) {
@@ -183,7 +201,7 @@ class PredictiveSearch extends SearchForm {
   }
 
   getSearchResults(searchTerm) {
-    const queryKey = searchTerm.replace(' ', '-').toLowerCase();
+    const queryKey = searchTerm.replace(/\s+/g, '-').toLowerCase();
     this.setLiveRegionLoadingState();
 
     if (this.cachedResults[queryKey]) {
@@ -191,19 +209,27 @@ class PredictiveSearch extends SearchForm {
       return;
     }
 
+    if (this.abortController) {
+      this.abortController.abort();
+    }
+    this.abortController = new AbortController();
+    this.latestSearchTerm = searchTerm;
+
     fetch(`${routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&section_id=predictive-search`, {
       signal: this.abortController.signal,
     })
       .then((response) => {
         if (!response.ok) {
           var error = new Error(response.status);
-          this.close();
           throw error;
         }
 
         return response.text();
       })
       .then((text) => {
+        if (this.latestSearchTerm !== searchTerm) {
+          return; // Ignore stale responses
+        }
         const resultsMarkup = new DOMParser()
           .parseFromString(text, 'text/html')
           .querySelector('#shopify-section-predictive-search').innerHTML;
@@ -214,13 +240,24 @@ class PredictiveSearch extends SearchForm {
         this.renderSearchResults(resultsMarkup);
       })
       .catch((error) => {
-        if (error?.code === 20) {
-          // Code 20 means the call was aborted
+        if (error?.code === 20 || error?.name === 'AbortError') {
+          // Code 20 or AbortError means the call was intentionally aborted
           return;
         }
-        this.close();
-        throw error;
+        this.renderSearchError(searchTerm);
       });
+  }
+
+  renderSearchError(searchTerm) {
+    this.removeAttribute('loading');
+    this.predictiveSearchResults.innerHTML = `
+      <div class="predictive-search__error text-center" style="padding: 2.5rem 1.5rem; color: var(--color-foreground);">
+        <p class="h5" style="margin-bottom: 0.6rem; color: #274b4f;">Unable to retrieve live suggestions</p>
+        <p style="font-size: 1.3rem; opacity: 0.75; margin-bottom: 1.2rem;">Please press Enter to browse full search results for &ldquo;${searchTerm}&rdquo;.</p>
+      </div>
+    `;
+    this.setAttribute('results', true);
+    this.open();
   }
 
   setLiveRegionLoadingState() {
@@ -253,12 +290,16 @@ class PredictiveSearch extends SearchForm {
 
   setLiveRegionResults() {
     this.removeAttribute('loading');
-    this.setLiveRegionText(this.querySelector('[data-predictive-search-live-region-count-value]').textContent);
+    const liveRegionCount = this.querySelector('[data-predictive-search-live-region-count-value]');
+    if (liveRegionCount) {
+      this.setLiveRegionText(liveRegionCount.textContent);
+    }
   }
 
   getResultsMaxHeight() {
-    this.resultsMaxHeight =
-      window.innerHeight - document.querySelector('.section-header').getBoundingClientRect().bottom;
+    const header = document.querySelector('.section-header') || document.querySelector('header') || document.querySelector('.header-middle');
+    const headerBottom = header ? header.getBoundingClientRect().bottom : 80;
+    this.resultsMaxHeight = Math.max(window.innerHeight - headerBottom - 20, 320);
     return this.resultsMaxHeight;
   }
 

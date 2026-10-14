@@ -86,7 +86,11 @@
                     <li id="predictive-search-option-product-{{ forloop.index }}" class="predictive-search__list-item" role="option" aria-selected="false">
                         <a href="{{ product.url }}" class="predictive-search__item predictive-search__item--link-with-thumbnail link link--text" tabindex="-1">
                             {%- if product.featured_media != blank -%}
-                            <img class="predictive-search__image" src="{{ product.featured_media | image_url: width: 450, height: 450, crop: 'center' }}" alt="{{ product.featured_media.alt }}" width="50" height="50">
+                            <img class="predictive-search__image" src="{{ product.featured_media | image_url: width: 450, height: 450, crop: 'center' }}" alt="{{ product.featured_media.alt | escape }}" width="50" height="50" loading="lazy">
+                            {%- else -%}
+                            <div class="predictive-search__image predictive-search__image--placeholder" style="width: 100%; aspect-ratio: 1/1; background: rgba(var(--color-foreground), 0.04); display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                            </div>
                             {%- endif -%}
                             <div class="predictive-search__item-content{% unless settings.predictive_search_show_vendor or settings.predictive_search_show_price %} predictive-search__item-content--centered{% endunless %}">
                                 {%- if settings.predictive_search_show_vendor -%}
