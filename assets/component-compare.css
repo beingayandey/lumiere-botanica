@@ -282,7 +282,8 @@
 @media (max-width: 1024px) {
   .compare-link {
     right: 16px;
-    bottom: 75px;
+    bottom: 24px;
+    z-index: 99;
   }
   .compare-link .btn--compare {
     padding: 1rem 1.8rem;
