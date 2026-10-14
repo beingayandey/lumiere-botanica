@@ -10,7 +10,9 @@
 	            {% endif %}
 	         {% endfor %}
     	</span>
-    	<span class="text">{{ localization.language.iso_code }}</span>
+    	<span class="text">
+            {%- if localization.language.iso_code == 'en' -%}EN{%- elsif localization.language.iso_code == 'bn' or localization.language.iso_code == 'bn-BD' -%}BN{%- else -%}{{ localization.language.iso_code | upcase }}{%- endif -%}
+        </span>
     	
     </button>
 </div>

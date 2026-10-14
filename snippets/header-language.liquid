@@ -16,7 +16,7 @@
                 {%- endfor -%}
             </span>
             <span class="text">
-                {{ language.iso_code }}
+                {%- if language.iso_code == 'en' -%}EN{%- elsif language.iso_code == 'bn' or language.iso_code == 'bn-BD' -%}BN{%- else -%}{{ language.iso_code | upcase }}{%- endif -%}
             </span>
         </a>
         {%- endfor -%}

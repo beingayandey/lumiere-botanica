@@ -1,0 +1,148 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "মূল বিষয়ে যান",
+      "close_modal": "বন্ধ করুন",
+      "link_messages": {
+        "new_window": "একটি নতুন উইন্ডোতে খোলে।",
+        "external": "বাহ্যিক ওয়েবসাইটে খোলে।",
+        "new_window_and_external": "একটি নতুন উইন্ডোতে বাহ্যিক ওয়েবসাইটে খোলে।"
+      },
+      "refresh_page": "নির্বাচন করলে সম্পূর্ণ পৃষ্ঠা রিফ্রেশ হয়।",
+      "selection_help": "নির্বাচন করতে স্পেস কী এবং তারপর অ্যারো কী টিপুন।",
+      "unit_price_separator": "প্রতি",
+      "error": "ত্রুটি"
+    },
+    "faq": {
+      "title": "থিম প্রশ্নাবলী",
+      "need_help": "সাহায্য প্রয়োজন?",
+      "contact": "যোগাযোগ করুন",
+      "message": "আমাদের বার্তা পাঠান",
+      "answer": "উত্তর"
+    },
+    "sidebar": {
+      "title": "সাইডবার"
+    },
+    "password_page": {
+      "login_form_heading": "পাসওয়ার্ড ব্যবহার করে স্টোরে প্রবেশ করুন:",
+      "login_password_button": "পাসওয়ার্ড দিয়ে প্রবেশ করুন",
+      "login_form_password_label": "পাসওয়ার্ড",
+      "login_form_password_placeholder": "আপনার পাসওয়ার্ড",
+      "login_form_error": "ভুল পাসওয়ার্ড!",
+      "login_form_submit": "প্রবেশ করুন",
+      "admin_link_html": "আপনি কি স্টোর মালিক? <a href=\"/admin\" class=\"link underlined-link\">এখানে লগইন করুন</a>",
+      "powered_by_shopify_html": "এই দোকানটি {{ shopify }} দ্বারা পরিচালিত হবে"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "ফেসবুকে শেয়ার করুন",
+        "share_on_twitter": "টুইটারে টুইট করুন",
+        "share_on_pinterest": "পিন্টারেস্টে পিন করুন"
+      },
+      "links": {
+        "twitter": "টুইটার",
+        "facebook": "ফেসবুক",
+        "pinterest": "পিন্টারেস্ট",
+        "instagram": "ইনস্টাগ্রাম",
+        "tumblr": "টাম্বলার",
+        "snapchat": "স্ন্যাপচ্যাট",
+        "youtube": "ইউটিউব",
+        "vimeo": "ভিমিও",
+        "tiktok": "টিকটক"
+      }
+    },
+    "continue_shopping": "কেনাকাটা চালিয়ে যান",
+    "pagination": {
+      "label": "পৃষ্ঠাকরণ",
+      "page": "{{ total }}-এর মধ্যে {{ current }} - {{ pageSize }} দেখানো হচ্ছে",
+      "next": "পরবর্তী পৃষ্ঠা",
+      "previous": "পূর্ববর্তী পৃষ্ঠা"
+    },
+    "search": {
+      "search": "আপনি কি খুঁজছেন?",
+      "reset": "অনুসন্ধানের শব্দ সাফ করুন",
+      "search_title": "অনুসন্ধান"
+    },
+    "cart": {
+      "view": "কার্ট দেখুন ({{ count }})",
+      "view_empty_cart": "কার্ট দেখুন",
+      "item_added": "আপনার কার্টে আইটেম যোগ করা হয়েছে"
+    },
+    "share": {
+      "close": "শেয়ার বন্ধ করুন",
+      "copy_to_clipboard": "লিঙ্ক কপি করুন",
+      "share_url": "লিঙ্ক",
+      "success_message": "ক্লিপবোর্ডে লিঙ্ক কপি করা হয়েছে"
+    },
+    "newsletter_form": {
+      "newsletter_email": "আমাদের মেইলিং তালিকায় সাবস্ক্রাইব করুন",
+      "email_placeholder": "ইমেল ঠিকানা",
+      "confirmation": "সাবস্ক্রাইব করার জন্য ধন্যবাদ!",
+      "error": "এই ইমেল ঠিকানাটি ইতিমধ্যে নিবন্ধিত হয়েছে!",
+      "submit": "সাবস্ক্রাইব করুন",
+      "dismiss": "না, ধন্যবাদ"
+    },
+    "slider": {
+      "of": "এর",
+      "next_slide": "ডানে স্লাইড করুন",
+      "previous_slide": "বামে স্লাইড করুন",
+      "name": "স্লাইডার"
+    },
+    "wishlist": {
+      "title": "আমার উইশলিস্ট",
+      "my_wishlist": "আমার উইশ লিস্ট",
+      "wishlist": "উইশলিস্ট",
+      "unit_price": "মূল্য",
+      "share_wishlist": "ইমেলের মাধ্যমে আমার উইশলিস্ট শেয়ার করুন",
+      "no_login_html": "উইশ লিস্ট তৈরি করতে আপনাকে অবশ্যই <a href=\"/account/login\">সাইন ইন</a> করতে হবে অথবা <a href=\"/account/register\">অ্যাকাউন্ট তৈরি</a> করতে হবে।",
+      "add_to_wishlist": "উইশলিস্টে যোগ করুন",
+      "remove_wishlist": "উইশলিস্ট থেকে সরান",
+      "note": "ইতিমধ্যে আপনার উইশলিস্টে আছে, উইশলিস্টে যান"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "কার্টে যোগ করুন",
+      "description": "বর্ণনা",
+      "on_sale": "ছাড়",
+      "quantity": "পরিমাণ",
+      "sold_out": "স্টক শেষ",
+      "vendor": "ভেন্ডর",
+      "unavailable": "অনুপলব্ধ",
+      "regular_price": "নিয়মিত মূল্য",
+      "sale_price": "ছাড়ের মূল্য",
+      "from_text_html": "{{ price }}-এ শুরু",
+      "value_unavailable": "{{ option_value }} - অনুপলব্ধ",
+      "in_stock": "স্টকে আছে",
+      "out_of_stock": "স্টক শেষ",
+      "media": {
+        "image_available": "ছবি {{ index }} উপলব্ধ"
+      }
+    }
+  },
+  "sections": {
+    "cart": {
+      "title": "আপনার কার্ট",
+      "subtotal": "উপমোট",
+      "new_subtotal": "নতুন উপমোট",
+      "taxes_and_shipping_policy_at_checkout_html": "ট্যাক্স এবং <a href=\"{{ link }}\">শিপিং খরচ</a> চেকআউটে গণনা করা হবে",
+      "taxes_included_but_shipping_at_checkout": "ট্যাক্স অন্তর্ভুক্ত, শিপিং চেকআউটে গণনা করা হবে",
+      "taxes_included_and_shipping_policy_html": "ট্যাক্স অন্তর্ভুক্ত। <a href=\"{{ link }}\">শিপিং খরচ</a> চেকআউটে গণনা করা হবে",
+      "shipping_at_checkout": "শিপিং চেকআউটে গণনা করা হবে",
+      "checkout": "চেকআউট",
+      "empty": "আপনার কার্ট খালি আছে",
+      "cart_error": "কার্ট আপডেট করার সময় ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
+      "cart_quantity_error_html": "আপনি এই আইটেমের {{ quantity }} টি কার্টে যোগ করতে পারবেন না।"
+    },
+    "footer": {
+      "social": "আমাদের সোশ্যাল মিডিয়া"
+    }
+  },
+  "localization": {
+    "country_label": "দেশ/অঞ্চল",
+    "language_label": "ভাষা",
+    "update_language": "ভাষা আপডেট করুন",
+    "update_country": "দেশ/অঞ্চল আপডেট করুন",
+    "search": "অনুসন্ধান"
+  }
+}
