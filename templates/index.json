@@ -449,11 +449,11 @@
         "padding_bottom": 40,
         "custom_color": false,
         "background_color": "#e2e2e7",
-        "color_heading": "#ea2176",
-        "color_text": "#000000",
-        "color_btn_text": "#fafafa",
-        "back_btn": "#000000",
-        "border_botton_color": "#000000"
+        "color_heading": "#274b4f",
+        "color_text": "#1a1f1d",
+        "color_btn_text": "#ffffff",
+        "back_btn": "#274b4f",
+        "border_botton_color": "#274b4f"
       }
     },
     "image_with_text_KiGUWw": {

@@ -113,7 +113,7 @@
         "logo_position": "middle-left",
         "enable-header-wishlist": true,
         "menu": "main-menu",
-        "menu_type_desktop": "drawer",
+        "menu_type_desktop": "mega",
         "sticky_header_type": "always",
         "show_line_separator": true,
         "enable_country_selector": true,
